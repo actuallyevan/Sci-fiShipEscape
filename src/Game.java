@@ -13,5 +13,16 @@ public class Game extends JPanel {
         this.setDoubleBuffered(true);
     }
 
+    public void paintComponent(Graphics g) {
+
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.setColor(Color.WHITE);
+        g2.fillRect(200, 200, 50, 75);
+
+    }
+
 
 }
