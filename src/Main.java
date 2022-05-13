@@ -5,10 +5,11 @@ public class Main {
 
         JFrame f = new JFrame();
         f.setVisible(true);
-        f.setSize(800, 450);
+        f.setSize(1920, 1080);
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        System.out.println("HHH");
+        Game game = new Game();
+        f.add(game);
 
     }
 }
