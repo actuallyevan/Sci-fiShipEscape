@@ -31,7 +31,7 @@ public class Entity extends JComponent {
         xpos+=10;
     }
 
-    public void paintComponent(Graphics g) {
+    public void draw (Graphics g) {
         g.setColor(Color.WHITE);
         g.fillRect(xpos, ypos, playerWidth, playerHeight);
     }

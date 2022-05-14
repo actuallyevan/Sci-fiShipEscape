@@ -64,13 +64,13 @@ public class Game extends JFrame implements KeyListener {
         }
     }
 
-//    public void paint(Graphics g) {
-//
-//        //super.paintComponent(g);
-//
-//        g.setColor(Color.black);
-//        g.fillRect(0,0, screenWidth, screenHeight);
-//    }
+    public void paint (Graphics g) {
+
+        //super.paintComponent(g);
+        g.setColor(Color.black);
+        g.fillRect(0,0, screenWidth, screenHeight);
+        player.draw(g);
+    }
 
 
     @Override
