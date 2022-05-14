@@ -9,7 +9,6 @@ public class Game extends JFrame implements KeyListener {
     final int screenWidth = 1920;
     final int screenHeight = 1080;
 
-    int fps = 60;
     final int NANO = 1000000000;
 
     public Game() {
