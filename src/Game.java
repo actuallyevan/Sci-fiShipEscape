@@ -43,17 +43,34 @@ public class Game extends JFrame implements KeyListener {
         }
     }
 
+    Boolean[] isPressed = {false, false, false, false};
+
     public void update() {
 
+        if (isPressed[0]) {
+            player.moveUp();
+        }
+
+        if (isPressed[1]) {
+            player.moveDown();
+        }
+
+        if (isPressed[2]) {
+            player.moveLeft();
+        }
+
+        if (isPressed[3]) {
+            player.moveRight();
+        }
     }
 
-    public void paintComponent(Graphics g) {
-
-        //super.paintComponent(g);
-
-        g.setColor(Color.black);
-        g.fillRect(0,0, screenWidth, screenHeight);
-    }
+//    public void paint(Graphics g) {
+//
+//        //super.paintComponent(g);
+//
+//        g.setColor(Color.black);
+//        g.fillRect(0,0, screenWidth, screenHeight);
+//    }
 
 
     @Override
@@ -61,27 +78,38 @@ public class Game extends JFrame implements KeyListener {
         e.consume();
     }
 
-    boolean isPressed = false;
-
     @Override
     public void keyPressed(KeyEvent e) {
-
         if (e.getKeyChar() == 'w') {
-            player.moveUp();
+            System.out.println("press");
+            isPressed[0] = true;
         }
         if (e.getKeyChar() == 's') {
-            player.moveDown();
+            isPressed[1] = true;
         }
         if (e.getKeyChar() == 'a') {
-            player.moveLeft();
+            isPressed[2] = true;
         }
         if (e.getKeyChar() == 'd') {
-            player.moveRight();
+            isPressed[3] = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        e.consume();
+        if (e.getKeyChar() == 'w') {
+            System.out.println("release");
+            isPressed[0] = false;
+        }
+        if (e.getKeyChar() == 's') {
+            isPressed[1] = false;
+        }
+        if (e.getKeyChar() == 'a') {
+            isPressed[2] = false;
+        }
+        if (e.getKeyChar() == 'd') {
+            isPressed[3] = false;
+        }
     }
 }
+
