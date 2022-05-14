@@ -1,28 +1,28 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Game extends JPanel implements Runnable {
+public class Game extends JFrame implements KeyListener {
 
     final int screenWidth = 1920;
     final int screenHeight = 1080;
 
     int fps = 60;
     final int NANO = 1000000000;
-    Thread gameThread;
 
-    public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
+    public Game() {
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
+        addKeyListener(this);
     }
 
-    @Override
-    public void run() {
+    public void gameLoop() {
 
         long currentTime;
         int counter = 0;
 
-        while(gameThread != null) {
+        while(true) {
 
             currentTime = System.nanoTime();
 
@@ -40,22 +40,32 @@ public class Game extends JPanel implements Runnable {
         }
     }
 
-    public Game() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
-    }
-
     public void paintComponent(Graphics g) {
 
-        super.paintComponent(g);
+        //super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
-
-        g2.setColor(Color.WHITE);
-        g2.fillRect(200, 200, 50, 75);
+        g.setColor(Color.black);
+        g.fillRect(0,0, screenWidth, screenHeight);
+        g.setColor(Color.WHITE);
+        g.fillRect(200, 200, 50, 75);
 
     }
 
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        if (e.getKeyChar() == 'a') {
+
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
