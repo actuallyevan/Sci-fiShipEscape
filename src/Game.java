@@ -8,6 +8,7 @@ public class Game extends JPanel implements Runnable {
     final int screenHeight = 1080;
 
     int fps = 60;
+    final int NANO = 1000000000;
     Thread gameThread;
 
     public void startGameThread() {
@@ -18,33 +19,24 @@ public class Game extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        long lastTime = System.nanoTime();
         long currentTime;
-        double interval = 1000000000/fps;
-        double timePassed = 0;
-        int frameCounter = 0;
-        long secondTimer = 0;
+        int counter = 0;
 
         while(gameThread != null) {
 
             currentTime = System.nanoTime();
-            timePassed += (currentTime - lastTime) / interval;
-            secondTimer += (currentTime - lastTime);
-            lastTime = currentTime;
 
-            if (timePassed >= 1) {
-                //update();
-                //repaint();
-                timePassed--;
-                frameCounter++;
+            //update();
+            //repaint();
+
+            while (System.nanoTime()-currentTime < NANO/60) {
+
             }
 
-            if (secondTimer >= 1000000000) {
-                System.out.println(frameCounter);
-                secondTimer = 0;
-                frameCounter = 0;
+            if (counter++ > 60) {
+                System.out.println(NANO / (System.nanoTime() - currentTime));
+                counter = 0;
             }
-
         }
     }
 

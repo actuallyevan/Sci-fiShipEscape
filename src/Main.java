@@ -9,8 +9,8 @@ public class Main {
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         Game game = new Game();
-        f.add(game);
         game.startGameThread();
+        f.add(game);
 
     }
 }
