@@ -81,7 +81,6 @@ public class Game extends JFrame implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyChar() == 'w') {
-            System.out.println("press");
             isPressed[0] = true;
         }
         if (e.getKeyChar() == 's') {
@@ -98,7 +97,6 @@ public class Game extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyChar() == 'w') {
-            System.out.println("release");
             isPressed[0] = false;
         }
         if (e.getKeyChar() == 's') {
