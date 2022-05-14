@@ -7,7 +7,7 @@ public class Game extends JPanel implements Runnable {
     final int screenWidth = 1920;
     final int screenHeight = 1080;
 
-    int FPS = 60;
+    int fps = 60;
     Thread gameThread;
 
     public void startGameThread() {
@@ -18,44 +18,33 @@ public class Game extends JPanel implements Runnable {
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS;
-        double nextDrawTime = System.nanoTime() + drawInterval;
-        long timer = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        double fps;
+        double interval = 1000000000/fps;
+        double timePassed = 0;
+        int frameCounter = 0;
+        long secondTimer = 0;
 
         while(gameThread != null) {
 
             currentTime = System.nanoTime();
+            timePassed += (currentTime - lastTime) / interval;
+            secondTimer += (currentTime - lastTime);
+            lastTime = currentTime;
 
-            //update();
-
-            //repaint();
-
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime / 1000000;
-
-                if (remainingTime < 0) {
-                    remainingTime = 0;
-                }
-
-                Thread.sleep((long) remainingTime);
-
-                nextDrawTime += drawInterval;
-                timer += (currentTime - lastTime);
-
-                fps = 1000000000.0 / (System.nanoTime() - lastTime);
-                lastTime = System.nanoTime();
-
-                if(timer >= 1000000000) {
-                    System.out.println(fps);
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-
+            if (timePassed >= 1) {
+                //update();
+                //repaint();
+                timePassed--;
+                frameCounter++;
             }
+
+            if (secondTimer >= 1000000000) {
+                System.out.println(frameCounter);
+                secondTimer = 0;
+                frameCounter = 0;
+            }
+
         }
     }
 

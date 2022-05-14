@@ -10,6 +10,7 @@ public class Main {
 
         Game game = new Game();
         f.add(game);
+        game.startGameThread();
 
     }
 }
