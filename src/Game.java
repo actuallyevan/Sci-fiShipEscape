@@ -46,22 +46,7 @@ public class Game extends JFrame implements KeyListener {
     Boolean[] isPressed = {false, false, false, false};
 
     public void update() {
-
-        if (isPressed[0]) {
-            player.moveUp();
-        }
-
-        if (isPressed[1]) {
-            player.moveDown();
-        }
-
-        if (isPressed[2]) {
-            player.moveLeft();
-        }
-
-        if (isPressed[3]) {
-            player.moveRight();
-        }
+        playerMove();
     }
 
     public void paint (Graphics g) {
@@ -108,6 +93,24 @@ public class Game extends JFrame implements KeyListener {
         }
         if (e.getKeyChar() == 'd') {
             isPressed[3] = false;
+        }
+    }
+
+    public void playerMove () {
+        if (isPressed[0]) {
+            player.moveUp();
+        }
+
+        if (isPressed[1]) {
+            player.moveDown();
+        }
+
+        if (isPressed[2]) {
+            player.moveLeft();
+        }
+
+        if (isPressed[3]) {
+            player.moveRight();
         }
     }
 }
