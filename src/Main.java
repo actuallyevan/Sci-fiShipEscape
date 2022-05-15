@@ -4,11 +4,15 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
+        JFrame window = new JFrame();
         Game game = new Game();
-        game.setVisible(true);
-        game.setSize(1920, 1080);
-        game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.setVisible(true);
+        window.setResizable(false);
+        window.setSize(1600, 900);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        window.add(game);
+        window.addKeyListener(game);
+        window.pack();
         game.gameLoop();
-
     }
 }

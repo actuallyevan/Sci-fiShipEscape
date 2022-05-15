@@ -3,23 +3,20 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
 import java.util.Map;
 
-public class Game extends JFrame implements KeyListener {
+public class Game extends JPanel implements KeyListener {
 
-    final int screenWidth = 1920;
-    final int screenHeight = 1080;
+    final int screenWidth = 1600;
+    final int screenHeight = 900;
     final int NANO = 1000000000;
     Boolean[] isPressed = {false, false, false, false};
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
-    Entity player = new Entity(500,500,50,50);
+    Entity player = new Entity(800,450,75,75, 10);
 
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-        addKeyListener(this);
-        add(player);
     }
 
     public void gameLoop() {
@@ -50,15 +47,24 @@ public class Game extends JFrame implements KeyListener {
         playerMove();
     }
 
-    public void paint (Graphics g) {
+    @Override
+    public void paintComponent (Graphics g) {
 
-        //super.paintComponent(g);
-
-        g.setColor(Color.black);
-        g.fillRect(0,0, screenWidth, screenHeight);
+//        super.paintComponent(g);
+        drawBackground(g);
         player.draw(g);
     }
 
+    public void drawBackground (Graphics g) {
+        g.setColor(Color.gray);
+        g.fillRect(100, 100, 1600-200, 900-200);
+        g.setColor(Color.black);
+        g.fillRect(0,0, 100, 800);
+        g.fillRect(0,800, 1500, 100);
+        g.fillRect(1500,0, 100, 900);
+        g.fillRect(0,0, 1500, 100);
+
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {

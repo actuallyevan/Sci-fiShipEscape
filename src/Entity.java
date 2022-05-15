@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class Entity extends JComponent {
+public class Entity {
 
     int xpos;
     int ypos;
@@ -9,28 +9,46 @@ public class Entity extends JComponent {
     int playerWidth;
     int speed;
 
-    public Entity(int xpos, int ypos, int playerHeight, int playerWidth) {
+    public Entity(int xpos, int ypos, int playerHeight, int playerWidth, int speed) {
         this.xpos = xpos;
         this.ypos = ypos;
         this.playerHeight = playerHeight;
         this.playerWidth = playerWidth;
+        this.speed = speed;
     }
 
     public void moveUp () {
-        ypos-=10;
+        if (ypos-speed >= 25+playerHeight) {
+            ypos-=speed;
+        } else {
+            ypos = 25+playerHeight;
+        }
     }
 
     public void moveDown () {
-        ypos+=10;
+        if (ypos+speed <= 800-playerHeight) {
+            ypos+=speed;
+        } else {
+            ypos = 800-playerHeight;
+        }
     }
 
     public void moveLeft () {
-        xpos-=10;
+        if (xpos-speed >= 25+playerHeight) {
+            xpos-=speed;
+        } else {
+            xpos = 25+playerHeight;
+        }
     }
 
     public void moveRight() {
-        xpos+=10;
+        if (xpos+speed <= 1500-playerHeight) {
+            xpos+=speed;
+        } else {
+            xpos = 1500-playerHeight;
+        }
     }
+
 
     public void draw (Graphics g) {
         g.setColor(Color.WHITE);
