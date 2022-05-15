@@ -7,6 +7,7 @@ public class Entity extends JComponent {
     int ypos;
     int playerHeight;
     int playerWidth;
+    int speed;
 
     public Entity(int xpos, int ypos, int playerHeight, int playerWidth) {
         this.xpos = xpos;

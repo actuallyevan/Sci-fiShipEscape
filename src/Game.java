@@ -3,13 +3,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game extends JFrame implements KeyListener {
 
     final int screenWidth = 1920;
     final int screenHeight = 1080;
-
     final int NANO = 1000000000;
+    Boolean[] isPressed = {false, false, false, false};
+    Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
     Entity player = new Entity(500,500,50,50);
 
@@ -43,8 +46,6 @@ public class Game extends JFrame implements KeyListener {
         }
     }
 
-    Boolean[] isPressed = {false, false, false, false};
-
     public void update() {
         playerMove();
     }
@@ -66,33 +67,17 @@ public class Game extends JFrame implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyChar() == 'w') {
-            isPressed[0] = true;
-        }
-        if (e.getKeyChar() == 's') {
-            isPressed[1] = true;
-        }
-        if (e.getKeyChar() == 'a') {
-            isPressed[2] = true;
-        }
-        if (e.getKeyChar() == 'd') {
-            isPressed[3] = true;
+        char c = e.getKeyChar();
+        if (keyMap.containsKey(c)) {
+            isPressed[keyMap.get(c)] = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyChar() == 'w') {
-            isPressed[0] = false;
-        }
-        if (e.getKeyChar() == 's') {
-            isPressed[1] = false;
-        }
-        if (e.getKeyChar() == 'a') {
-            isPressed[2] = false;
-        }
-        if (e.getKeyChar() == 'd') {
-            isPressed[3] = false;
+        char c = e.getKeyChar();
+        if (keyMap.containsKey(c)) {
+            isPressed[keyMap.get(c)] = false;
         }
     }
 
