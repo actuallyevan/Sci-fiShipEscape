@@ -1,4 +1,3 @@
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -32,11 +31,11 @@ public class Game extends JPanel implements KeyListener {
 
             repaint();
 
-            while (System.nanoTime()-currentTime < NANO/60) {
+            while (System.nanoTime()-currentTime <= NANO/60) {
 
             }
 
-            if (counter++ > 60) {
+            if (counter++ >= 60) {
                 System.out.println(NANO / (System.nanoTime() - currentTime));
                 counter = 0;
             }
