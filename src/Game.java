@@ -13,13 +13,10 @@ public class Game extends JPanel implements KeyListener {
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
     Entity player = new Entity(800,450,75,75, 10);
-
-    //Board needs to be in the game class?
-    private Board temp;
+    Board temp = new Board(intArr());
 
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-        temp = new Board(intArr());
         System.out.println(temp);
     }
 
@@ -40,10 +37,10 @@ public class Game extends JPanel implements KeyListener {
 
             }
 
-            if (counter++ >= 60) {
-                System.out.println(NANO / (System.nanoTime() - currentTime));
-                counter = 0;
-            }
+//            if (counter++ >= 60) {
+//                System.out.println(NANO / (System.nanoTime() - currentTime));
+//                counter = 0;
+//            }
         }
     }
 
