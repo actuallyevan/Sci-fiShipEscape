@@ -8,6 +8,11 @@ public class Level {
         createBackground();
     }
 
+    public void level1() {
+        createBackground();
+        //set certain tiles to spike, door, etc
+    }
+
     public void createBackground() {
         for (int i = 0; i < tiles.length; i++) {
             for (int k = 0; k < tiles[0].length; k++) {
