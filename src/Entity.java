@@ -53,4 +53,13 @@ public class Entity {
         g.setColor(Color.WHITE);
         g.fillRect(xpos, ypos, playerWidth, playerHeight);
     }
+
+    public int getXpos() {
+        return xpos;
+    }
+
+    public int getYpos() {
+        return ypos;
+    }
+
 }

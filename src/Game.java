@@ -17,10 +17,12 @@ public class Game extends JPanel implements KeyListener {
 
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-        System.out.println(backGround);
+//        System.out.println(backGround);
     }
 
     public void gameLoop() {
+
+        int counter = 0;
 
         long currentTime;
 
@@ -35,6 +37,12 @@ public class Game extends JPanel implements KeyListener {
             while (System.nanoTime()-currentTime <= NANO/60) {
 
             }
+
+            if(counter++ >= 60) {
+                System.out.println(detectTile(player));
+                counter = 0;
+            }
+
         }
     }
 
@@ -87,5 +95,11 @@ public class Game extends JPanel implements KeyListener {
             player.moveRight();
         }
     }
+
+    public Tile detectTile(Entity ent) {
+        Tile currentTile = backGround.getTiles()[ent.getYpos()/100][ent.getXpos()/100];
+        return currentTile;
+    }
+
 }
 

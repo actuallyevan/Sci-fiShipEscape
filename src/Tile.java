@@ -24,4 +24,11 @@ public class Tile {
         g.setColor(tileColor);
         g.fillRect(xpos, ypos, tileWidth, tileHeight);
     }
+
+    public String toString() {
+        String str = "";
+        str += "X position is " + xpos/100 + " Y position is " + ypos/100;
+        return str;
+    }
+
 }
