@@ -55,20 +55,8 @@ public class Game extends JPanel implements KeyListener {
     public void paintComponent (Graphics g) {
 
 //      super.paintComponent(g);
-        drawBackground(g);
         temp.draw(g);
         player.draw(g);
-    }
-
-    public void drawBackground (Graphics g) {
-        g.setColor(Color.gray);
-        g.fillRect(100, 100, 1600-200, 900-200);
-        g.setColor(Color.black);
-        g.fillRect(0,0, 100, 800);
-        g.fillRect(0,800, 1500, 100);
-        g.fillRect(1500,0, 100, 900);
-        g.fillRect(0,0, 1500, 100);
-
     }
 
     @Override
