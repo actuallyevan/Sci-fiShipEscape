@@ -14,8 +14,13 @@ public class Game extends JPanel implements KeyListener {
 
     Entity player = new Entity(800,450,75,75, 10);
 
+    //Board needs to be in the game class?
+    private Board temp;
+
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
+        temp = new Board(intArr());
+        System.out.println(temp);
     }
 
     public void gameLoop() {
@@ -51,6 +56,7 @@ public class Game extends JPanel implements KeyListener {
 
 //      super.paintComponent(g);
         drawBackground(g);
+        temp.draw(g);
         player.draw(g);
     }
 
@@ -103,5 +109,22 @@ public class Game extends JPanel implements KeyListener {
             player.moveRight();
         }
     }
+
+    public static int[][] intArr() {
+
+        int[][] ret = new int[9][16];
+
+        for(int i = 0; i < ret.length; i++) {
+            for(int k = 0; k < ret[0].length; k++) {
+                if((i == 0) || (i == 8) || (k == 0) || (k == 15)) {
+                    ret[i][k] = 0;
+                } else {
+                    ret[i][k] = 1;
+                }
+            }
+        }
+        return ret;
+    }
+
 }
 

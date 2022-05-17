@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Tile extends JComponent {
 
-    int tileWidth = 120;
-    int tileHeight = 120;
+    int tileWidth = 100;
+    int tileHeight = 100;
     int xpos;
     int ypos;
 
@@ -13,8 +13,8 @@ public class Tile extends JComponent {
         this.ypos = ypos;
     }
 
-    public void draw (Graphics g) {
-        g.setColor(Color.gray);
+    public void draw (Graphics g, Color tile) {
+        g.setColor(tile);
         g.fillRect(xpos, ypos, tileWidth, tileHeight);
     }
 }
