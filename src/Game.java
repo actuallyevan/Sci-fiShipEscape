@@ -45,7 +45,6 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        backGround.draw(g);
         player.draw(g);
     }
 
