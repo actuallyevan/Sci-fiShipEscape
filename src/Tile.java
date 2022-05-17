@@ -1,7 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 
-public class Tile extends JComponent {
+public class Tile {
 
     int tileWidth = 100;
     int tileHeight = 100;
@@ -12,6 +11,8 @@ public class Tile extends JComponent {
     public Tile() {
         int xpos = 0;
         int ypos = 0;
+        tileWidth = 100;
+        tileHeight = 100;
     }
 
     public Tile(int xpos, int ypos) {
