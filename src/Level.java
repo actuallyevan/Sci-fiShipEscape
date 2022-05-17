@@ -2,7 +2,7 @@ import java.awt.*;
 
 public class Level {
 
-    Tile[][] tiles = new Tile[9][16];
+    private Tile[][] tiles = new Tile[9][16];
 
     public Level() {
         createBackground();
@@ -33,4 +33,5 @@ public class Level {
             }
         }
     }
+
 }
