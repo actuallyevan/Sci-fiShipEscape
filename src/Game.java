@@ -13,17 +13,16 @@ public class Game extends JPanel implements KeyListener {
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
     Entity player = new Entity(800,450,75,75, 10);
-    Board temp = new Board(intArr());
+    Level backGround = new Level();
 
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-        System.out.println(temp);
+        System.out.println(backGround);
     }
 
     public void gameLoop() {
 
         long currentTime;
-        int counter = 0;
 
         while(true) {
 
@@ -36,11 +35,6 @@ public class Game extends JPanel implements KeyListener {
             while (System.nanoTime()-currentTime <= NANO/60) {
 
             }
-
-//            if (counter++ >= 60) {
-//                System.out.println(NANO / (System.nanoTime() - currentTime));
-//                counter = 0;
-//            }
         }
     }
 
@@ -51,7 +45,7 @@ public class Game extends JPanel implements KeyListener {
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
-        temp.draw(g);
+        backGround.draw(g);
         player.draw(g);
     }
 
@@ -93,22 +87,5 @@ public class Game extends JPanel implements KeyListener {
             player.moveRight();
         }
     }
-
-    public static int[][] intArr() {
-
-        int[][] ret = new int[9][16];
-
-        for(int i = 0; i < ret.length; i++) {
-            for(int k = 0; k < ret[0].length; k++) {
-                if((i == 0) || (i == 8) || (k == 0) || (k == 15)) {
-                    ret[i][k] = 0;
-                } else {
-                    ret[i][k] = 1;
-                }
-            }
-        }
-        return ret;
-    }
-
 }
 
