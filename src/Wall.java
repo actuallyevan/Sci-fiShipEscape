@@ -10,7 +10,7 @@ public class Wall extends Tile {
     @Override
     public void draw (Graphics g) {
         g.setColor(tileColor);
-        g.fillRect(xpos, ypos, tileHeight, tileWidth);
+        g.fillRect(xpos, ypos, tileWidth, tileHeight);
     }
 
 
