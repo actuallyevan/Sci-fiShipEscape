@@ -111,7 +111,7 @@ public class Game extends JPanel implements KeyListener {
         }
 
         if (isPressed[1]) {
-            y += ent.getSpeed();
+            y += ent.getSpeed() + 75;
         }
 
         if (isPressed[2]) {
@@ -119,7 +119,7 @@ public class Game extends JPanel implements KeyListener {
         }
 
         if (isPressed[3]) {
-            x += ent.getSpeed();
+            x += ent.getSpeed() + 75;
         }
         Tile currentTile = backGround.getTiles()[y/100][x/100];
         return currentTile;
@@ -128,20 +128,20 @@ public class Game extends JPanel implements KeyListener {
     public void executeNextTile(Tile tile, Entity ent) {
         if(tile.getClass() == Wall.class) {
             if (isPressed[0]) {
-                player.moveDown();
+                ent.setYpos(tile.getYpos() + 100);
             }
 
             if (isPressed[1]) {
-                ent.setYpos(tile.getYpos() - 100);
+                ent.setYpos(tile.getYpos() - 75);
 
             }
 
             if (isPressed[2]) {
-                player.moveRight();
+                ent.setXpos(tile.getXpos() + 100);
             }
 
             if (isPressed[3]) {
-                player.moveLeft();
+                ent.setXpos(tile.getXpos() - 75);
             }
         }
     }
