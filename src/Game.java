@@ -39,7 +39,8 @@ public class Game extends JPanel implements KeyListener {
             }
 
             if(counter++ >= 60) {
-                System.out.println(detectTile(player));
+                System.out.println(detectCurrentTile(player));
+                System.out.println("next " + detectNextTile(player));
                 counter = 0;
             }
 
@@ -48,6 +49,7 @@ public class Game extends JPanel implements KeyListener {
 
     public void update() {
         playerMove();
+        executeNextTile(detectNextTile(player), player);
     }
 
     @Override
@@ -96,10 +98,55 @@ public class Game extends JPanel implements KeyListener {
         }
     }
 
-    public Tile detectTile(Entity ent) {
+    public Tile detectCurrentTile(Entity ent) {
         Tile currentTile = backGround.getTiles()[ent.getYpos()/100][ent.getXpos()/100];
         return currentTile;
     }
 
+    public Tile detectNextTile(Entity ent) {
+        int x = ent.getXpos();
+        int y = ent.getYpos();
+        if (isPressed[0]) {
+            y -= ent.getSpeed();
+        }
+
+        if (isPressed[1]) {
+            y += ent.getSpeed();
+        }
+
+        if (isPressed[2]) {
+            x -= ent.getSpeed();
+        }
+
+        if (isPressed[3]) {
+            x += ent.getSpeed();
+        }
+        Tile currentTile = backGround.getTiles()[y/100][x/100];
+        return currentTile;
+    }
+
+    public void executeNextTile(Tile tile, Entity ent) {
+        if(tile.getClass() == Wall.class) {
+            if (isPressed[0]) {
+                player.moveDown();
+            }
+
+            if (isPressed[1]) {
+                ent.setYpos(tile.getYpos() - 100);
+
+            }
+
+            if (isPressed[2]) {
+                player.moveRight();
+            }
+
+            if (isPressed[3]) {
+                player.moveLeft();
+            }
+        }
+    }
+
 }
+
+
 

@@ -27,8 +27,15 @@ public class Tile {
 
     public String toString() {
         String str = "";
-        str += "X position is " + xpos/100 + " Y position is " + ypos/100;
+        str += "Tile X position is " + xpos/100 + ", Y position is " + ypos/100;
         return str;
     }
 
+    public int getXpos() {
+        return xpos;
+    }
+
+    public int getYpos() {
+        return ypos;
+    }
 }

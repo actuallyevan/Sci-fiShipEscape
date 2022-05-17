@@ -17,35 +17,35 @@ public class Entity {
     }
 
     public void moveUp () {
-        if (ypos-speed >= 25+playerHeight) {
+//        if (ypos-speed >= 25+playerHeight) {
             ypos-=speed;
-        } else {
-            ypos = 25+playerHeight;
-        }
+//        } else {
+//            ypos = 25+playerHeight;
+//        }
     }
 
     public void moveDown () {
-        if (ypos+speed <= 800-playerHeight) {
+//        if (ypos+speed <= 800-playerHeight) {
             ypos+=speed;
-        } else {
-            ypos = 800-playerHeight;
-        }
+//        } else {
+//            ypos = 800-playerHeight;
+//        }
     }
 
     public void moveLeft () {
-        if (xpos-speed >= 25+playerHeight) {
+//        if (xpos-speed >= 25+playerHeight) {
             xpos-=speed;
-        } else {
-            xpos = 25+playerHeight;
-        }
+//        } else {
+//            xpos = 25+playerHeight;
+//        }
     }
 
     public void moveRight() {
-        if (xpos+speed <= 1500-playerHeight) {
+//        if (xpos+speed <= 1500-playerHeight) {
             xpos+=speed;
-        } else {
-            xpos = 1500-playerHeight;
-        }
+//        } else {
+//            xpos = 1500-playerHeight;
+//        }
     }
 
 
@@ -58,8 +58,20 @@ public class Entity {
         return xpos;
     }
 
+    public void setXpos(int x) {
+        xpos = x;
+    }
+
     public int getYpos() {
         return ypos;
+    }
+
+    public void setYpos(int y) {
+        ypos = y;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 
 }
