@@ -17,7 +17,7 @@ public class Game extends JPanel implements KeyListener {
 
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
-//        System.out.println(backGround);
+        backGround.level1();
     }
 
     public void gameLoop() {
@@ -48,8 +48,8 @@ public class Game extends JPanel implements KeyListener {
     }
 
     public void update() {
+        executeNextTile(player);
         playerMove();
-        executeNextTile(detectNextTile(player), player);
     }
 
     @Override
@@ -125,25 +125,40 @@ public class Game extends JPanel implements KeyListener {
         return currentTile;
     }
 
-    public void executeNextTile(Tile tile, Entity ent) {
-        if(tile.getClass() == Wall.class) {
-            if (isPressed[0]) {
-                ent.setYpos(tile.getYpos() + 100);
+    public void executeNextTile(Entity ent) {
+        Tile currentTile = detectCurrentTile(ent);
+        int x = ent.getXpos();
+        int y = ent.getYpos();
+        int dx = 0;
+        int dy = 0;
+        if(isPressed[2]) dx -= 10;
+        if(isPressed[3]) dx += 85;
+        if(isPressed[0]) dy -= 10;
+        if(isPressed[1]) dy += 85;
+
+        if(isPressed[2] || isPressed[3]) {
+            Tile horizontalTile = backGround.getTiles()[y/100][(x+dx)/100];
+//            Tile horizontalTileTwo = backGround.getTiles()[(y+75)/100][(x+dx)/100];
+            if((horizontalTile.getClass() == Wall.class || horizontalTile.getClass() == Wall.class) && isPressed[2]) {
+                ent.setXpos(horizontalTile.getXpos()+110);
+            }
+            if((horizontalTile.getClass() == Wall.class || horizontalTile.getClass() == Wall.class) && isPressed[3]) {
+                ent.setXpos(horizontalTile.getXpos()-85);
             }
 
-            if (isPressed[1]) {
-                ent.setYpos(tile.getYpos() - 75);
+        }
 
+        if(isPressed[0] || isPressed[1]) {
+            Tile verticalTile = backGround.getTiles()[(y + dy)/100][x/100];
+//            Tile verticalTiletwo = backGround.getTiles()[(y+dy)/100][(x+75)/100];
+            if((verticalTile.getClass() == Wall.class || verticalTile.getClass() == Wall.class) && isPressed[0]) {
+                ent.setYpos(verticalTile.getYpos()+110);
             }
-
-            if (isPressed[2]) {
-                ent.setXpos(tile.getXpos() + 100);
-            }
-
-            if (isPressed[3]) {
-                ent.setXpos(tile.getXpos() - 75);
+            if((verticalTile.getClass() == Wall.class || verticalTile.getClass() == Wall.class) && isPressed[1]) {
+                ent.setYpos(verticalTile.getYpos()-85);
             }
         }
+
     }
 }
 
