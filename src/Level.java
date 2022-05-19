@@ -9,7 +9,7 @@ public class Level {
     }
 
     public void level1() {
-
+        tiles[3][7] = new Wall(700, 300);
     }
 
     public void createBackground() {

@@ -138,11 +138,11 @@ public class Game extends JPanel implements KeyListener {
 
         if(isPressed[2] || isPressed[3]) {
             Tile horizontalTile = backGround.getTiles()[y/100][(x+dx)/100];
-//            Tile horizontalTileTwo = backGround.getTiles()[(y+75)/100][(x+dx)/100];
-            if((horizontalTile.getClass() == Wall.class || horizontalTile.getClass() == Wall.class) && isPressed[2]) {
+            Tile horizontalTileTwo = backGround.getTiles()[(y+74)/100][(x+dx)/100];
+            if((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[2]) {
                 ent.setXpos(horizontalTile.getXpos()+110);
             }
-            if((horizontalTile.getClass() == Wall.class || horizontalTile.getClass() == Wall.class) && isPressed[3]) {
+            if((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[3]) {
                 ent.setXpos(horizontalTile.getXpos()-85);
             }
 
@@ -150,11 +150,11 @@ public class Game extends JPanel implements KeyListener {
 
         if(isPressed[0] || isPressed[1]) {
             Tile verticalTile = backGround.getTiles()[(y + dy)/100][x/100];
-//            Tile verticalTiletwo = backGround.getTiles()[(y+dy)/100][(x+75)/100];
-            if((verticalTile.getClass() == Wall.class || verticalTile.getClass() == Wall.class) && isPressed[0]) {
+            Tile verticalTileTwo = backGround.getTiles()[(y+dy)/100][(x+74)/100];
+            if((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[0]) {
                 ent.setYpos(verticalTile.getYpos()+110);
             }
-            if((verticalTile.getClass() == Wall.class || verticalTile.getClass() == Wall.class) && isPressed[1]) {
+            if((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
                 ent.setYpos(verticalTile.getYpos()-85);
             }
         }
