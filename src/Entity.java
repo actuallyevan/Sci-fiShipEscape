@@ -74,4 +74,11 @@ public class Entity {
         return speed;
     }
 
+    public int getPlayerHeight() {
+        return playerHeight;
+    }
+
+    public int getPlayerWidth() {
+        return playerWidth;
+    }
 }
