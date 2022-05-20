@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Game extends JPanel implements KeyListener {
@@ -10,9 +11,13 @@ public class Game extends JPanel implements KeyListener {
     final int screenHeight = 900;
     final int NANO = 1000000000;
     Boolean[] isPressed = {false, false, false, false};
+    Boolean[] isPressedArrow = {false, false, false, false};
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
     Entity player = new Entity(800,450,75,75, 10);
+
+    ArrayList<Entity> entList = new ArrayList<Entity>();
+
     Level backGround = new Level();
 
     public Game() {
@@ -22,7 +27,11 @@ public class Game extends JPanel implements KeyListener {
 
     public void gameLoop() {
 
+        entList.add(player);
+
         int counter = 0;
+        
+        int projCounter = 0;
 
         long currentTime;
 
@@ -30,26 +39,41 @@ public class Game extends JPanel implements KeyListener {
 
             currentTime = System.nanoTime();
 
-            update();
+            update(projCounter);
 
             repaint();
 
             while (System.nanoTime()-currentTime <= NANO/60) {
 
             }
-
+            
+            if (projCounter++ > 30) {
+                projCounter = 0;
+            }
+            
 //            if(counter++ >= 60) {
+//                System.out.println(isPressedArrow[0]);
 //                counter = 0;
 //            }
 
         }
     }
 
-    public void update() {
-        executeNextTile(player);
-        playerMove();
+    public void update(int proj) {
+        for(int i = 0; i < entList.size(); i++) {
+            executeNextTile(entList.get(i));
+            if (entList.get(i).getClass() != Projectile.class) {
+                playerMove();
+            } else if (entList.get(i).getClass() == Projectile.class) {
+                //projective move
+            } // else for enemy
+        }
+        
+        if(proj == 30) {
+            //spawn projectile
+        }
+        
     }
-
     @Override
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
@@ -68,6 +92,15 @@ public class Game extends JPanel implements KeyListener {
         if (keyMap.containsKey(c)) {
             isPressed[keyMap.get(c)] = true;
         }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+            isPressedArrow[3] = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+            isPressedArrow[2] = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_UP ) {
+            isPressedArrow[0] = true;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+            isPressedArrow[1] = true;
+        }
     }
 
     @Override
@@ -75,6 +108,15 @@ public class Game extends JPanel implements KeyListener {
         char c = e.getKeyChar();
         if (keyMap.containsKey(c)) {
             isPressed[keyMap.get(c)] = false;
+        }
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+            isPressedArrow[3] = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+            isPressedArrow[2] = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_UP ) {
+            isPressedArrow[0] = false;
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+            isPressedArrow[1] = false;
         }
     }
 
@@ -95,6 +137,25 @@ public class Game extends JPanel implements KeyListener {
             player.moveRight();
         }
     }
+    
+//    public void spawnProj () {
+//        if (isPressed[0]) {
+//            ent.moveUp();
+//        }
+//
+//        if (isPressed[1]) {
+//            ent.moveDown();
+//        }
+//
+//        if (isPressed[2]) {
+//            ent.moveLeft();
+//        }
+//
+//        if (isPressed[3]) {
+//            ent.moveRight();
+//        }
+//    }
+
 
     public void executeNextTile(Entity ent) {
         int x = ent.getXpos();
@@ -128,7 +189,6 @@ public class Game extends JPanel implements KeyListener {
                 ent.setYpos(verticalTile.getYpos() - ent.getHeight() - ent.getSpeed());
             }
         }
-
     }
 }
 

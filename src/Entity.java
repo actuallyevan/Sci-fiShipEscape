@@ -17,35 +17,19 @@ public class Entity {
     }
 
     public void moveUp () {
-//        if (ypos-speed >= 25+height) {
             ypos-=speed;
-//        } else {
-//            ypos = 25+height;
-//        }
     }
 
     public void moveDown () {
-//        if (ypos+speed <= 800-height) {
             ypos+=speed;
-//        } else {
-//            ypos = 800-height;
-//        }
     }
 
     public void moveLeft () {
-//        if (xpos-speed >= 25+height) {
             xpos-=speed;
-//        } else {
-//            xpos = 25+height;
-//        }
     }
 
     public void moveRight() {
-//        if (xpos+speed <= 1500-height) {
             xpos+=speed;
-//        } else {
-//            xpos = 1500-height;
-//        }
     }
 
 
