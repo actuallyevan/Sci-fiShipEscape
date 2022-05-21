@@ -10,6 +10,8 @@ public class Game extends JPanel implements KeyListener {
     final int screenWidth = 1600;
     final int screenHeight = 900;
     final int NANO = 1000000000;
+
+    private int projCounter;
     Boolean[] isPressed = {false, false, false, false};
     Boolean[] isPressedArrow = {false, false, false, false};
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
@@ -17,6 +19,7 @@ public class Game extends JPanel implements KeyListener {
     Entity player = new Entity(800,450,75,75, 10);
 
     ArrayList<Entity> entList = new ArrayList<Entity>();
+    ArrayList<Projectile> projList = new ArrayList<Projectile>();
 
     Level backGround = new Level();
 
@@ -30,8 +33,6 @@ public class Game extends JPanel implements KeyListener {
         entList.add(player);
 
         int counter = 0;
-        
-        int projCounter = 0;
 
         long currentTime;
 
@@ -39,16 +40,12 @@ public class Game extends JPanel implements KeyListener {
 
             currentTime = System.nanoTime();
 
-            update(projCounter);
+            update();
 
             repaint();
 
             while (System.nanoTime()-currentTime <= NANO/60) {
 
-            }
-            
-            if (projCounter++ > 30) {
-                projCounter = 0;
             }
             
 //            if(counter++ >= 60) {
@@ -59,18 +56,22 @@ public class Game extends JPanel implements KeyListener {
         }
     }
 
-    public void update(int proj) {
+    public void update() {
         for(int i = 0; i < entList.size(); i++) {
             executeNextTile(entList.get(i));
             if (entList.get(i).getClass() != Projectile.class) {
                 playerMove();
             } else if (entList.get(i).getClass() == Projectile.class) {
-                //projective move
-            } // else for enemy
+                //other Entities
+            }
+        }
+
+        for(int i = 0; i < projList.size(); i++) {
+            projList.get(i).projectileMove();
         }
         
-        if(proj == 30) {
-            //spawn projectile
+        if(projCounter++ >= 10) {
+            spawnPlayerProj();
         }
         
     }
@@ -78,7 +79,12 @@ public class Game extends JPanel implements KeyListener {
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
         backGround.draw(g);
-        player.draw(g);
+        for(int i = 0; i < entList.size(); i++) {
+            entList.get(i).draw(g);
+        }
+        for(int i = 0; i < projList.size(); i++) {
+            projList.get(i).draw(g);
+        }
     }
 
     @Override
@@ -138,23 +144,35 @@ public class Game extends JPanel implements KeyListener {
         }
     }
     
-//    public void spawnProj () {
-//        if (isPressed[0]) {
-//            ent.moveUp();
-//        }
-//
-//        if (isPressed[1]) {
-//            ent.moveDown();
-//        }
-//
-//        if (isPressed[2]) {
-//            ent.moveLeft();
-//        }
-//
-//        if (isPressed[3]) {
-//            ent.moveRight();
-//        }
-//    }
+    public void spawnPlayerProj () {
+        if (isPressedArrow[0]) {
+            Projectile proj = new Projectile(player.getXpos() + player.getWidth()/2 - 10, player.getYpos() - 20,
+                    20, 20, 15, 0);
+            projList.add(proj);
+            projCounter = 0;
+        } else
+
+        if (isPressedArrow[1]) {
+            Projectile proj = new Projectile(player.getXpos() + player.getWidth()/2 - 10, player.getYpos()+player.getHeight(),
+                    20, 20, 15, 1);
+            projList.add(proj);
+            projCounter = 0;
+        } else
+
+        if (isPressedArrow[2]) {
+            Projectile proj = new Projectile(player.getXpos() - 20, player.getYpos() + player.getHeight()/2 - 10,
+                    20, 20, 15, 2);
+            projList.add(proj);
+            projCounter = 0;
+        } else
+
+        if (isPressedArrow[3]) {
+            Projectile proj = new Projectile(player.getXpos() + player.getWidth(), player.getYpos() + player.getHeight()/2 - 10,
+                    20, 20, 15, 3);
+            projList.add(proj);
+            projCounter = 0;
+        }
+    }
 
 
     public void executeNextTile(Entity ent) {
