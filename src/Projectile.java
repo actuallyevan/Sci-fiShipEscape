@@ -3,25 +3,73 @@ import java.awt.*;
 public class Projectile extends Entity {
 
     private int direction;
+    private int bloom;
+    private double projX;
+    private double projY;
 
-    public Projectile (int xpos, int ypos, int height, int width, int speed, int direction) {
-        super(xpos, ypos, height, width, speed);
+    public Projectile (double projX, double projY, int height, int width, int speed, int direction, int bloom) {
+        this.projX = projX;
+        this.projY = projY;
+        this.height = height;
+        this.width = width;
+        this.speed = speed;
         this.direction = direction;
+        this.bloom = bloom;
     }
 
     public void projectileMove() {
         switch (direction) {
             case 0:
-                ypos -= speed;
+                projY -= speed;
+                switch (bloom) {
+                    case 0:
+                        break;
+                    case 1:
+                        projX -= 0.5;
+                        break;
+                    case 2:
+                        projX += 0.5;
+                        break;
+                }
                 break;
             case 1:
-                ypos += speed;
+                projY += speed;
+                switch (bloom) {
+                    case 0:
+                        break;
+                    case 1:
+                        projX -= 0.5;
+                        break;
+                    case 2:
+                        projX += 0.5;
+                        break;
+                }
                 break;
             case 2:
-                xpos -= speed;
+                projX -= speed;
+                switch (bloom) {
+                    case 0:
+                        break;
+                    case 1:
+                        projY -= 0.5;
+                        break;
+                    case 2:
+                        projY += 0.5;
+                        break;
+                }
                 break;
             case 3:
-                xpos += speed;
+                projX += speed;
+                switch (bloom) {
+                    case 0:
+                        break;
+                    case 1:
+                        projY -= 0.5;
+                        break;
+                    case 2:
+                        projY += 0.5;
+                        break;
+                }
                 break;
         }
     }
@@ -29,7 +77,7 @@ public class Projectile extends Entity {
 
     public void draw (Graphics g) {
         g.setColor(Color.ORANGE);
-        g.fillRect(xpos, ypos, width, height);
+        g.fillRect((int) projX, (int) projY, width, height);
     }
 
 

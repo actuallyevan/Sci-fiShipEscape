@@ -18,8 +18,8 @@ public class Game extends JPanel implements KeyListener {
 
     Entity player = new Entity(800,450,75,75, 10);
 
-    ArrayList<Entity> entList = new ArrayList<Entity>();
-    ArrayList<Projectile> projList = new ArrayList<Projectile>();
+    ArrayList<Entity> entList = new ArrayList<>();
+    ArrayList<Projectile> projList = new ArrayList<>();
 
     Level backGround = new Level();
 
@@ -32,7 +32,7 @@ public class Game extends JPanel implements KeyListener {
 
         entList.add(player);
 
-        int counter = 0;
+//        int counter = 0;
 
         long currentTime;
 
@@ -57,20 +57,20 @@ public class Game extends JPanel implements KeyListener {
     }
 
     public void update() {
-        for(int i = 0; i < entList.size(); i++) {
-            executeNextTile(entList.get(i));
-            if (entList.get(i).getClass() != Projectile.class) {
+        for (Entity entity : entList) {
+            executeNextTile(entity);
+            if (entity.getClass() != Projectile.class) {
                 playerMove();
-            } else if (entList.get(i).getClass() == Projectile.class) {
+            } else if (entity.getClass() == Projectile.class) {
                 //other Entities
             }
         }
 
-        for(int i = 0; i < projList.size(); i++) {
-            projList.get(i).projectileMove();
+        for (Projectile projectile : projList) {
+            projectile.projectileMove();
         }
         
-        if(projCounter++ >= 10) {
+        if(projCounter++ >= 8) {
             spawnPlayerProj();
         }
         
@@ -79,11 +79,11 @@ public class Game extends JPanel implements KeyListener {
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
         backGround.draw(g);
-        for(int i = 0; i < entList.size(); i++) {
-            entList.get(i).draw(g);
+        for (Entity entity : entList) {
+            entity.draw(g);
         }
-        for(int i = 0; i < projList.size(); i++) {
-            projList.get(i).draw(g);
+        for (Projectile projectile : projList) {
+            projectile.draw(g);
         }
     }
 
@@ -98,13 +98,13 @@ public class Game extends JPanel implements KeyListener {
         if (keyMap.containsKey(c)) {
             isPressed[keyMap.get(c)] = true;
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == 76) {
             isPressedArrow[3] = true;
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == 74 ) {
             isPressedArrow[2] = true;
-        } else if (e.getKeyCode() == KeyEvent.VK_UP ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == 73 ) {
             isPressedArrow[0] = true;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == 75 ) {
             isPressedArrow[1] = true;
         }
     }
@@ -115,13 +115,13 @@ public class Game extends JPanel implements KeyListener {
         if (keyMap.containsKey(c)) {
             isPressed[keyMap.get(c)] = false;
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT ) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == 76) {
             isPressedArrow[3] = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == 74 ) {
             isPressedArrow[2] = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_UP ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == 73 ) {
             isPressedArrow[0] = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN || e.getKeyCode() == 75 ) {
             isPressedArrow[1] = false;
         }
     }
@@ -147,28 +147,28 @@ public class Game extends JPanel implements KeyListener {
     public void spawnPlayerProj () {
         if (isPressedArrow[0]) {
             Projectile proj = new Projectile(player.getXpos() + player.getWidth()/2 - 10, player.getYpos() - 20,
-                    20, 20, 15, 0);
+                    20, 20, 15, 0, (int)(Math.random()*3));
             projList.add(proj);
             projCounter = 0;
         } else
 
         if (isPressedArrow[1]) {
             Projectile proj = new Projectile(player.getXpos() + player.getWidth()/2 - 10, player.getYpos()+player.getHeight(),
-                    20, 20, 15, 1);
+                    20, 20, 15, 1, (int)(Math.random()*3));
             projList.add(proj);
             projCounter = 0;
         } else
 
         if (isPressedArrow[2]) {
             Projectile proj = new Projectile(player.getXpos() - 20, player.getYpos() + player.getHeight()/2 - 10,
-                    20, 20, 15, 2);
+                    20, 20, 15, 2, (int)(Math.random()*3));
             projList.add(proj);
             projCounter = 0;
         } else
 
         if (isPressedArrow[3]) {
             Projectile proj = new Projectile(player.getXpos() + player.getWidth(), player.getYpos() + player.getHeight()/2 - 10,
-                    20, 20, 15, 3);
+                    20, 20, 15, 3, (int)(Math.random()*3));
             projList.add(proj);
             projCounter = 0;
         }

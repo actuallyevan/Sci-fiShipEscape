@@ -8,6 +8,10 @@ public class Entity {
     int width;
     int speed;
 
+    public Entity() {
+
+    }
+
     public Entity(int xpos, int ypos, int height, int width, int speed) {
         this.xpos = xpos;
         this.ypos = ypos;
