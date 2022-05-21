@@ -6,6 +6,7 @@ public class Projectile extends Entity {
     private int bloom;
     private double projX;
     private double projY;
+    private double bloomAmount = 0.5;
 
     public Projectile (double projX, double projY, int height, int width, int speed, int direction, int bloom) {
         this.projX = projX;
@@ -25,10 +26,10 @@ public class Projectile extends Entity {
                     case 0:
                         break;
                     case 1:
-                        projX -= 0.5;
+                        projX -= bloomAmount;
                         break;
                     case 2:
-                        projX += 0.5;
+                        projX += bloomAmount;
                         break;
                 }
                 break;
@@ -38,10 +39,10 @@ public class Projectile extends Entity {
                     case 0:
                         break;
                     case 1:
-                        projX -= 0.5;
+                        projX -= bloomAmount;
                         break;
                     case 2:
-                        projX += 0.5;
+                        projX += bloomAmount;
                         break;
                 }
                 break;
@@ -51,10 +52,10 @@ public class Projectile extends Entity {
                     case 0:
                         break;
                     case 1:
-                        projY -= 0.5;
+                        projY -= bloomAmount;
                         break;
                     case 2:
-                        projY += 0.5;
+                        projY += bloomAmount;
                         break;
                 }
                 break;
@@ -64,10 +65,10 @@ public class Projectile extends Entity {
                     case 0:
                         break;
                     case 1:
-                        projY -= 0.5;
+                        projY -= bloomAmount;
                         break;
                     case 2:
-                        projY += 0.5;
+                        projY += bloomAmount;
                         break;
                 }
                 break;
