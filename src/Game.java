@@ -12,6 +12,7 @@ public class Game extends JPanel implements KeyListener {
     final int NANO = 1000000000;
 
     private int projCounter;
+    private boolean removed;
     Boolean[] isPressed = {false, false, false, false};
     Boolean[] isPressedArrow = {false, false, false, false};
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
@@ -67,7 +68,11 @@ public class Game extends JPanel implements KeyListener {
         }
 
         for(int i = 0; i < projList.size(); i++) {
-            projList.get(i).projectileMove();
+            removed = false;
+            executeNextTile(projList.get(i));
+            if(!removed) {
+                projList.get(i).projectileMove();
+            }
         }
         
         if(projCounter++ >= 10) {
@@ -84,6 +89,7 @@ public class Game extends JPanel implements KeyListener {
         }
         for(int i = 0; i < projList.size(); i++) {
             projList.get(i).draw(g);
+
         }
     }
 
@@ -180,31 +186,74 @@ public class Game extends JPanel implements KeyListener {
         int y = ent.getYpos();
         int dx = 0;
         int dy = 0;
-        if(isPressed[2]) dx -= ent.getSpeed();
-        if(isPressed[3]) dx += ent.getSpeed() + ent.getWidth();
-        if(isPressed[0]) dy -= ent.getSpeed();
-        if(isPressed[1]) dy += ent.getSpeed() + ent.getHeight();
 
-        if(isPressed[2] || isPressed[3]) {
-            Tile horizontalTile = backGround.getTiles()[y/100][(x+dx)/100];
-            Tile horizontalTileTwo = backGround.getTiles()[(y+ent.getHeight()-1)/100][(x+dx)/100];
-            if((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[2]) {
-                ent.setXpos(horizontalTile.getXpos()+100+ent.getSpeed());
-            }
-            if((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[3]) {
-                ent.setXpos(horizontalTile.getXpos() - ent.getWidth() - ent.getSpeed());
+
+        if(ent.getClass() == Projectile.class) {
+            switch(((Projectile) ent).getDirection()) {
+                case 0:
+                    dy -= ent.getSpeed();
+                    break;
+                case 1:
+                    dy += ent.getSpeed() + ent.getHeight();
+                    break;
+                case 2:
+                    dx -= ent.getSpeed();
+                    break;
+                case 3:
+                    dx += ent.getSpeed() + ent.getWidth();
+                    break;
             }
 
-        }
-
-        if(isPressed[0] || isPressed[1]) {
-            Tile verticalTile = backGround.getTiles()[(y + dy)/100][x/100];
-            Tile verticalTileTwo = backGround.getTiles()[(y+dy)/100][(x+ent.getWidth()-1)/100];
-            if((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[0]) {
-                ent.setYpos(verticalTile.getYpos()+100+ent.getSpeed());
+            if(dx != 0) {
+                Tile horizontalTile = backGround.getTiles()[y / 100][(x + dx) / 100];
+                Tile horizontalTileTwo = backGround.getTiles()[(y + ent.getHeight()) / 100][(x + dx) / 100];
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
+                    projList.remove(ent);
+                    System.out.println("horizontal entity deleted");
+                    removed = true;
+                }
             }
-            if((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
-                ent.setYpos(verticalTile.getYpos() - ent.getHeight() - ent.getSpeed());
+            if(dy != 0) {
+                Tile verticalTile = backGround.getTiles()[(y + dy) / 100][x / 100];
+                Tile verticalTileTwo = backGround.getTiles()[(y + dy) / 100][(x + ent.getWidth()) / 100];
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
+                    projList.remove(ent);
+                    System.out.println("vertical entity deleted");
+                    removed = true;
+                }
+            }
+
+
+
+
+        } else {
+
+            if(isPressed[2]) dx -= ent.getSpeed();
+            if(isPressed[3]) dx += ent.getSpeed() + ent.getWidth();
+            if(isPressed[0]) dy -= ent.getSpeed();
+            if(isPressed[1]) dy += ent.getSpeed() + ent.getHeight();
+
+            if (isPressed[2] || isPressed[3]) {
+                Tile horizontalTile = backGround.getTiles()[y / 100][(x + dx) / 100];
+                Tile horizontalTileTwo = backGround.getTiles()[(y + ent.getHeight() - 1) / 100][(x + dx) / 100];
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[2]) {
+                    ent.setXpos(horizontalTile.getXpos() + 100 + ent.getSpeed());
+                }
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[3]) {
+                    ent.setXpos(horizontalTile.getXpos() - ent.getWidth() - ent.getSpeed());
+                }
+
+            }
+
+            if (isPressed[0] || isPressed[1]) {
+                Tile verticalTile = backGround.getTiles()[(y + dy) / 100][x / 100];
+                Tile verticalTileTwo = backGround.getTiles()[(y + dy) / 100][(x + ent.getWidth() - 1) / 100];
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[0]) {
+                    ent.setYpos(verticalTile.getYpos() + 100 + ent.getSpeed());
+                }
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
+                    ent.setYpos(verticalTile.getYpos() - ent.getHeight() - ent.getSpeed());
+                }
             }
         }
     }

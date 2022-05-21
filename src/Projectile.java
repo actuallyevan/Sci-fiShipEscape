@@ -26,6 +26,9 @@ public class Projectile extends Entity {
         }
     }
 
+    public int getDirection() {
+        return direction;
+    }
 
     public void draw (Graphics g) {
         g.setColor(Color.ORANGE);
