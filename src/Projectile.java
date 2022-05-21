@@ -20,7 +20,7 @@ public class Projectile extends Entity {
 
     public void projectileMove() {
         switch (direction) {
-            case 0:
+            case 0 -> {
                 projY -= speed;
                 switch (bloom) {
                     case 0:
@@ -32,8 +32,8 @@ public class Projectile extends Entity {
                         projX += bloomAmount;
                         break;
                 }
-                break;
-            case 1:
+            }
+            case 1 -> {
                 projY += speed;
                 switch (bloom) {
                     case 0:
@@ -45,8 +45,8 @@ public class Projectile extends Entity {
                         projX += bloomAmount;
                         break;
                 }
-                break;
-            case 2:
+            }
+            case 2 -> {
                 projX -= speed;
                 switch (bloom) {
                     case 0:
@@ -58,8 +58,8 @@ public class Projectile extends Entity {
                         projY += bloomAmount;
                         break;
                 }
-                break;
-            case 3:
+            }
+            case 3 -> {
                 projX += speed;
                 switch (bloom) {
                     case 0:
@@ -71,10 +71,21 @@ public class Projectile extends Entity {
                         projY += bloomAmount;
                         break;
                 }
-                break;
+            }
         }
     }
 
+    public int getDirection() {
+        return direction;
+    }
+
+    public double getProjY () {
+        return projY;
+    }
+
+    public double getProjX () {
+        return projX;
+    }
 
     public void draw (Graphics g) {
         g.setColor(Color.ORANGE);

@@ -4,38 +4,31 @@ public class Tile {
 
     int tileWidth = 100;
     int tileHeight = 100;
-    int xpos;
-    int ypos;
+    int xPos;
+    int yPos;
     Color tileColor = Color.gray;
 
-    public Tile() {
-        int xpos = 0;
-        int ypos = 0;
-        tileWidth = 100;
-        tileHeight = 100;
-    }
-
-    public Tile(int xpos, int ypos) {
-        this.xpos = xpos;
-        this.ypos = ypos;
+    public Tile(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
     }
 
     public void draw (Graphics g) {
         g.setColor(tileColor);
-        g.fillRect(xpos, ypos, tileWidth, tileHeight);
+        g.fillRect(xPos, yPos, tileWidth, tileHeight);
     }
 
     public String toString() {
         String str = "";
-        str += "Tile X position is " + xpos/100 + ", Y position is " + ypos/100;
+        str += "Tile X position is " + xPos/100 + ", Y position is " + yPos/100;
         return str;
     }
 
-    public int getXpos() {
-        return xpos;
+    public int getXPos() {
+        return xPos;
     }
 
-    public int getYpos() {
-        return ypos;
+    public int getYPos() {
+        return yPos;
     }
 }

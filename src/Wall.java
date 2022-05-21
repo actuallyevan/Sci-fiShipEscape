@@ -4,13 +4,13 @@ public class Wall extends Tile {
 
     Color tileColor = Color.black;
 
-    public Wall (int xpos, int ypos) {
-        super(xpos, ypos);
+    public Wall (int xPos, int yPos) {
+        super(xPos, yPos);
     }
     @Override
     public void draw (Graphics g) {
         g.setColor(tileColor);
-        g.fillRect(xpos, ypos, tileWidth, tileHeight);
+        g.fillRect(xPos, yPos, tileWidth, tileHeight);
     }
 
 

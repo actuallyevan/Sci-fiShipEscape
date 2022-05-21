@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Entity {
 
-    int xpos;
-    int ypos;
+    int xPos;
+    int yPos;
     int height;
     int width;
     int speed;
@@ -12,50 +12,50 @@ public class Entity {
 
     }
 
-    public Entity(int xpos, int ypos, int height, int width, int speed) {
-        this.xpos = xpos;
-        this.ypos = ypos;
+    public Entity(int xPos, int yPos, int height, int width, int speed) {
+        this.xPos = xPos;
+        this.yPos = yPos;
         this.height = height;
         this.width = width;
         this.speed = speed;
     }
 
     public void moveUp () {
-            ypos-=speed;
+            yPos-=speed;
     }
 
     public void moveDown () {
-            ypos+=speed;
+            yPos+=speed;
     }
 
     public void moveLeft () {
-            xpos-=speed;
+            xPos-=speed;
     }
 
     public void moveRight() {
-            xpos+=speed;
+            xPos+=speed;
     }
 
 
     public void draw (Graphics g) {
         g.setColor(Color.WHITE);
-        g.fillRect(xpos, ypos, width, height);
+        g.fillRect(xPos, yPos, width, height);
     }
 
-    public int getXpos() {
-        return xpos;
+    public int getXPos() {
+        return xPos;
     }
 
-    public void setXpos(int x) {
-        xpos = x;
+    public void setXPos(int x) {
+        xPos = x;
     }
 
-    public int getYpos() {
-        return ypos;
+    public int getYPos() {
+        return yPos;
     }
 
-    public void setYpos(int y) {
-        ypos = y;
+    public void setYPos(int y) {
+        yPos = y;
     }
 
     public int getSpeed() {
