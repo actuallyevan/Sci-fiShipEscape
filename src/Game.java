@@ -27,7 +27,7 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
-        Enemy en = new Enemy(400,450,75,75, 10, 2, 1);
+        Enemy en = new Enemy(400,300,75,75, 10, 2, 1);
         enemyList.add(en);
     }
 
@@ -213,28 +213,49 @@ public class Game extends JPanel implements KeyListener {
         } else if(ent.getClass() == Enemy.class){
             int enX =  ent.getXPos();
             int enY =  ent.getYPos();
-            switch (((Enemy) ent).getDirection()) {
-                case 0 -> dy -= ent.getSpeed();
-                case 1 -> dy += ent.getSpeed() + ent.getHeight();
-                case 2 -> dx -= ent.getSpeed();
-                case 3 -> dx += ent.getSpeed() + ent.getWidth();
+            if(((Enemy) ent).getBehavior()==1) {
+                switch (((Enemy) ent).getDirection()) {
+                    case 0 -> dy -= ent.getSpeed();
+                    case 1 -> dy += ent.getSpeed() + ent.getHeight();
+                    case 2 -> dx -= ent.getSpeed();
+                    case 3 -> dx += ent.getSpeed() + ent.getWidth();
+                }
+            } else {
+                switch (((Enemy) ent).getDirection()) {
+                    case 0 -> {
+                        dx += ent.getSpeed() + ent.getWidth();
+                        dy -= ent.getSpeed();
+                    }
+                    case 1 -> {
+                        dx -= ent.getSpeed();
+                        dy -= ent.getSpeed();
+                    }
+                    case 2 -> {
+                        dx -= ent.getSpeed();
+                        dy += ent.getSpeed() + ent.getHeight();
+                    }
+                    case 3 -> {
+                        dx += ent.getSpeed() + ent.getWidth();
+                        dy += ent.getSpeed() + ent.getHeight();
+                    }
+                }
             }
-
             if(dx != 0) {
                 Tile horizontalTile = backGround.getTiles()[enY / 100][(enX + dx) / 100];
                 Tile horizontalTileTwo = backGround.getTiles()[(enY + ent.getHeight()) / 100][(enX + dx) / 100];
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
                     if(((Enemy) ent).getBehavior() == 1) {
                         switch (((Enemy) ent).getDirection()) {
-                            case 2:
-                                ((Enemy) ent).setDirection(3);
-                                break;
-                            case 3:
-                                ((Enemy) ent).setDirection(2);
-                                break;
+                            case 2 -> ((Enemy) ent).setDirection(3);
+                            case 3 -> ((Enemy) ent).setDirection(2);
                         }
                     } else {
-
+                        switch ((((Enemy) ent).getDirection())) {
+                            case 0 -> ((Enemy) ent).setDirection(1);
+                            case 1 -> ((Enemy) ent).setDirection(0);
+                            case 2 -> ((Enemy) ent).setDirection(3);
+                            case 3 -> ((Enemy) ent).setDirection(2);
+                        }
                     }
                 }
             }
@@ -243,8 +264,19 @@ public class Game extends JPanel implements KeyListener {
                 Tile verticalTile = backGround.getTiles()[(enY + dy) / 100][enX / 100];
                 Tile verticalTileTwo = backGround.getTiles()[(enY + dy) / 100][(enX + ent.getWidth()) / 100];
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
-                    projList.remove(ent);
-                    removed = true;
+                    if(((Enemy) ent).getBehavior() == 1) {
+                        switch (((Enemy) ent).getDirection()) {
+                            case 0 -> ((Enemy) ent).setDirection(1);
+                            case 1 -> ((Enemy) ent).setDirection(0);
+                        }
+                    } else {
+                        switch ((((Enemy) ent).getDirection())) {
+                            case 0 -> ((Enemy) ent).setDirection(3);
+                            case 1 -> ((Enemy) ent).setDirection(2);
+                            case 2 -> ((Enemy) ent).setDirection(1);
+                            case 3 -> ((Enemy) ent).setDirection(0);
+                        }
+                    }
                 }
             }
 
