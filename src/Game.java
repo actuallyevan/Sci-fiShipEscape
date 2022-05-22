@@ -11,7 +11,10 @@ public class Game extends JPanel implements KeyListener {
     final int screenHeight = 900;
     final int NANO = 1000000000;
 
-    private int projCounter;
+    private int playerProjCounter;
+    private int playerProjSpeed = 15;
+    private int enemyProjCounter;
+    private int enemyProjSpeed = 7;
     private boolean removed;
     Boolean[] isPressed = {false, false, false, false};
     Boolean[] isPressedArrow = {false, false, false, false};
@@ -27,7 +30,7 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
-        Enemy en = new Enemy(400,300,75,75, 10, 2, 2);
+        Enemy en = new Enemy(400,300,75,75, 6, 2, 3);
         enemyList.add(en);
     }
 
@@ -75,8 +78,12 @@ public class Game extends JPanel implements KeyListener {
             }
         }
 
-        if(projCounter++ >= 8) {
+        if(playerProjCounter++ >= 8) {
             spawnPlayerProj();
+        }
+        
+        if(enemyProjCounter++ >= 45) {
+            spawnEnemyProj();
         }
     }
     
@@ -155,28 +162,44 @@ public class Game extends JPanel implements KeyListener {
     public void spawnPlayerProj () {
         if (isPressedArrow[0]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth()/2 - 10, player.getYPos() - 20,
-                    20, 20, 15, 0, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 0, ((int)(Math.random()*3)));
             projList.add(proj);
-            projCounter = 0;
+            playerProjCounter = 0;
         } else if (isPressedArrow[1]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth()/2 - 10, player.getYPos()+player.getHeight(),
-                    20, 20, 15, 1, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 1, ((int)(Math.random()*3)));
             projList.add(proj);
-            projCounter = 0;
+            playerProjCounter = 0;
         } else if (isPressedArrow[2]) {
             Projectile proj = new Projectile(player.getXPos() - 20, player.getYPos() + player.getHeight()/2 - 10,
-                    20, 20, 15, 2, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 2, ((int)(Math.random()*3)));
             projList.add(proj);
-            projCounter = 0;
+            playerProjCounter = 0;
         } else if (isPressedArrow[3]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth(), player.getYPos() + player.getHeight()/2 - 10,
-                    20, 20, 15, 3, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 3, ((int)(Math.random()*3)));
             projList.add(proj);
-            projCounter = 0;
+            playerProjCounter = 0;
         }
     }
 
-    public void spawn
+    public void spawnEnemyProj () {
+        for (int i = 0; i<enemyList.size(); i++) {
+            Projectile proj = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth()/2 - 10, enemyList.get(i).getYPos() - 20,
+                    20, 20, enemyProjSpeed, 0, ((int)(Math.random()*3)));
+            projList.add(proj);
+            Projectile proj1 = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth()/2 - 10,
+                    enemyList.get(i).getYPos()+enemyList.get(i).getHeight(), 20, 20, enemyProjSpeed, 1, ((int)(Math.random()*3)));
+            projList.add(proj1);
+            Projectile proj2 = new Projectile(enemyList.get(i).getXPos() - 20, enemyList.get(i).getYPos() + enemyList.get(i).getHeight()/2 - 10,
+                    20, 20, enemyProjSpeed, 2, ((int)(Math.random()*3)));
+            projList.add(proj2);
+            Projectile proj3 = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth(),
+                    enemyList.get(i).getYPos() + enemyList.get(i).getHeight()/2 - 10, 20, 20, enemyProjSpeed, 3, ((int)(Math.random()*3)));
+            projList.add(proj3);
+            enemyProjCounter = 0;
+        }
+    }
 
     public void executeNextTile(Entity ent) {
         int x = ent.getXPos();
