@@ -56,11 +56,11 @@ public class Enemy extends Entity{
                 }
                 if (counter < (squareSize*0.25)) {
                     xPos += speed;
-                } else if (counter > (squareSize*0.25) && counter < (squareSize*0.5)) {
+                } else if (counter >= (squareSize*0.25) && counter < (squareSize*0.5)) {
                     yPos += speed;
-                } else if (counter > (squareSize*0.5) && counter < (squareSize*0.75)) {
+                } else if (counter >= (squareSize*0.5) && counter < (squareSize*0.75)) {
                     xPos -= speed;
-                } else if ( counter > (squareSize*0.75) && counter < squareSize) {
+                } else if ( counter >= (squareSize*0.75) && counter < squareSize) {
                     yPos -= speed;
                 }
                 counter++;
