@@ -12,7 +12,7 @@ public class Enemy extends Entity{
         this.direction = direction;
         this.behavior = behavior;
         if (this.behavior == 2) {
-            speed /= 2;
+            this.speed /= 2;
         }
     }
 

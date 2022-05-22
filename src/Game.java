@@ -27,7 +27,7 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
-        Enemy en = new Enemy(400,300,75,75, 10, 2, 1);
+        Enemy en = new Enemy(400,300,75,75, 10, 2, 2);
         enemyList.add(en);
     }
 
