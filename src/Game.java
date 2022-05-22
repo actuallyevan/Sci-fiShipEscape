@@ -176,6 +176,8 @@ public class Game extends JPanel implements KeyListener {
         }
     }
 
+    public void spawn
+
     public void executeNextTile(Entity ent) {
         int x = ent.getXPos();
         int y = ent.getYPos();
