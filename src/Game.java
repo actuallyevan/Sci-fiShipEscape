@@ -19,7 +19,7 @@ public class Game extends JPanel implements KeyListener {
 
     Entity player = new Entity(800,450,75,75, 10);
 
-    ArrayList<Entity> entList = new ArrayList<>();
+    ArrayList<Enemy> enemyList = new ArrayList<>();
     ArrayList<Projectile> projList = new ArrayList<>();
 
     Level backGround = new Level();
@@ -27,11 +27,12 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
+        Enemy en = new Enemy(400,450,75,75, 10, 2, 1);
+        enemyList.add(en);
     }
 
     public void gameLoop() {
 
-        entList.add(player);
 
 //        int counter = 0;
 
@@ -48,7 +49,7 @@ public class Game extends JPanel implements KeyListener {
             while (System.nanoTime()-currentTime <= NANO/60) {
 
             }
-            
+
 //            if(counter++ >= 60) {
 //                System.out.println(isPressedArrow[0]);
 //                counter = 0;
@@ -57,13 +58,13 @@ public class Game extends JPanel implements KeyListener {
     }
 
     public void update() {
-        for(int i = 0; i < entList.size(); i++) {
-            executeNextTile(entList.get(i));
-            if (entList.get(i).getClass() != Projectile.class) {
-                playerMove();
-            } else if (entList.get(i).getClass() == Projectile.class) {
-                //other Entities
-            }
+
+        executeNextTile(player);
+        playerMove();
+        for(int i = 0; i < enemyList.size(); i++) {
+            executeNextTile(enemyList.get(i));
+            enemyList.get(i).enemyMove();
+            //shoot
         }
 
         for(int i = 0; i < projList.size(); i++) {
@@ -73,7 +74,7 @@ public class Game extends JPanel implements KeyListener {
                 projList.get(i).projectileMove();
             }
         }
-        
+
         if(projCounter++ >= 8) {
             spawnPlayerProj();
         }
@@ -83,9 +84,12 @@ public class Game extends JPanel implements KeyListener {
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
         backGround.draw(g);
-        for (Entity entity : entList) {
-            entity.draw(g);
+        player.draw(g);
+
+        for(Enemy enemy : enemyList) {
+            enemy.draw(g);
         }
+
         for (Projectile projectile : projList) {
             projectile.draw(g);
         }
@@ -147,7 +151,7 @@ public class Game extends JPanel implements KeyListener {
             player.moveRight();
         }
     }
-    
+
     public void spawnPlayerProj () {
         if (isPressedArrow[0]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth()/2 - 10, player.getYPos() - 20,
@@ -193,7 +197,6 @@ public class Game extends JPanel implements KeyListener {
                 Tile horizontalTileTwo = backGround.getTiles()[(projY + ent.getHeight()) / 100][(projX + dx) / 100];
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
                     projList.remove(ent);
-                    System.out.println("horizontal entity deleted");
                     removed = true;
                 }
             }
@@ -203,11 +206,48 @@ public class Game extends JPanel implements KeyListener {
                 Tile verticalTileTwo = backGround.getTiles()[(projY + dy) / 100][(projX + ent.getWidth()) / 100];
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
                     projList.remove(ent);
-                    System.out.println("vertical entity deleted");
                     removed = true;
                 }
             }
             
+        } else if(ent.getClass() == Enemy.class){
+            int enX =  ent.getXPos();
+            int enY =  ent.getYPos();
+            switch (((Enemy) ent).getDirection()) {
+                case 0 -> dy -= ent.getSpeed();
+                case 1 -> dy += ent.getSpeed() + ent.getHeight();
+                case 2 -> dx -= ent.getSpeed();
+                case 3 -> dx += ent.getSpeed() + ent.getWidth();
+            }
+
+            if(dx != 0) {
+                Tile horizontalTile = backGround.getTiles()[enY / 100][(enX + dx) / 100];
+                Tile horizontalTileTwo = backGround.getTiles()[(enY + ent.getHeight()) / 100][(enX + dx) / 100];
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
+                    if(((Enemy) ent).getBehavior() == 1) {
+                        switch (((Enemy) ent).getDirection()) {
+                            case 2:
+                                ((Enemy) ent).setDirection(3);
+                                break;
+                            case 3:
+                                ((Enemy) ent).setDirection(2);
+                                break;
+                        }
+                    } else {
+
+                    }
+                }
+            }
+
+            if(dy != 0) {
+                Tile verticalTile = backGround.getTiles()[(enY + dy) / 100][enX / 100];
+                Tile verticalTileTwo = backGround.getTiles()[(enY + dy) / 100][(enX + ent.getWidth()) / 100];
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
+                    projList.remove(ent);
+                    removed = true;
+                }
+            }
+
         } else {
 
             if(isPressed[2]) dx -= ent.getSpeed();
