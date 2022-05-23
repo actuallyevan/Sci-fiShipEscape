@@ -78,6 +78,10 @@ public class Game extends JPanel implements KeyListener {
             }
         }
 
+        for(int i = 0; i < projList.size(); i++) {
+            entityCollision(projList.get(i));
+        }
+
         if(playerProjCounter++ >= 8) {
             spawnPlayerProj();
         }
@@ -226,28 +230,14 @@ public class Game extends JPanel implements KeyListener {
                     projList.remove(ent);
                     removed = true;
                 }
-                if (!((Projectile) ent).getIsPlayerProj()) {
-                    if ((((Projectile) ent).getProjY() >= (player.getYPos() - 15) && ((Projectile) ent).getProjY() <= (player.getYPos() + 75)
-                            && (((Projectile) ent).getProjX() + 20) >= player.getXPos()) && (((Projectile) ent).getProjX()) <= player.getXPos() + 75) {
-                        projList.remove(ent);
-                        removed = true;
-                    }
-                }
             }
-            
+
             if(dy != 0) {
                 Tile verticalTile = backGround.getTiles()[(projY + dy) / 100][projX / 100];
                 Tile verticalTileTwo = backGround.getTiles()[(projY + dy) / 100][(projX + ent.getWidth()) / 100];
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
                     projList.remove(ent);
                     removed = true;
-                }
-                if (!((Projectile) ent).getIsPlayerProj()) {
-                    if ((((Projectile) ent).getProjX() >= (player.getXPos() - 15) && ((Projectile) ent).getProjX() <= (player.getXPos() + 75)
-                            && (((Projectile) ent).getProjY() + 20) >= player.getYPos()) && ((Projectile) ent).getProjY() <= player.getYPos() + 75) {
-                        projList.remove(ent);
-                        removed = true;
-                    }
                 }
             }
             
@@ -347,6 +337,35 @@ public class Game extends JPanel implements KeyListener {
                 }
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
                     ent.setYPos(verticalTile.getYPos() - ent.getHeight() - ent.getSpeed());
+                }
+            }
+        }
+    }
+
+    public void entityCollision(Projectile proj) {
+        if (!(proj.getIsPlayerProj())) {
+            if ((proj.getProjY() >= (player.getYPos()) && proj.getProjY() <= (player.getYPos() + 75)
+                    && (proj.getProjX() + proj.getWidth()) >= player.getXPos()) && (proj.getProjX()) <= player.getXPos() + 75) {
+                projList.remove(proj);
+                removed = true;
+            }
+            if ((proj.getProjX() >= (player.getXPos()) && proj.getProjX() <= (player.getXPos() + 75)
+                    && (proj.getProjY() + proj.getHeight()) >= player.getYPos()) && proj.getProjY() <= player.getYPos() + 75) {
+                projList.remove(proj);
+                removed = true;
+            }
+        }
+        if (proj.getIsPlayerProj()) {
+            for (Enemy enemy : enemyList) {
+                if ((proj.getProjY() >= (enemy.getYPos()) && proj.getProjY() <= (enemy.getYPos() + 75)
+                        && (proj.getProjX() + proj.getWidth()) >= enemy.getXPos()) && (proj.getProjX()) <= enemy.getXPos() + 75) {
+                    projList.remove(proj);
+                    removed = true;
+                }
+                if ((proj.getProjX() >= (enemy.getXPos()) && proj.getProjX() <= (enemy.getXPos() + 75)
+                        && (proj.getProjY() + proj.getHeight()) >= enemy.getYPos()) && proj.getProjY() <= enemy.getYPos() + 75) {
+                    projList.remove(proj);
+                    removed = true;
                 }
             }
         }
