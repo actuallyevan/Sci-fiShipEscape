@@ -225,13 +225,8 @@ public class Game extends JPanel implements KeyListener {
                     projList.remove(ent);
                     removed = true;
                 }
-                if ((((Projectile) ent).getProjY() > (player.getYPos()-15) && ((Projectile) ent).getProjY() < (player.getYPos() + 75)
-                        && ((Projectile) ent).getProjX() >= player.getXPos()) && ((Projectile) ent).getProjX() <= player.getXPos() + 75) {
-                    projList.remove(ent);
-                    removed = true;
-                }
-                if ((((Projectile) ent).getProjY() > (player.getYPos()-15) && ((Projectile) ent).getProjY() < (player.getYPos() + 75)
-                        && ((Projectile) ent).getProjX() <= player.getXPos() + 75) && ((Projectile) ent).getProjX() >= player.getXPos()) {
+                if ((((Projectile) ent).getProjY() >= (player.getYPos()-15) && ((Projectile) ent).getProjY() <= (player.getYPos() + 75)
+                        && (((Projectile) ent).getProjX()+20) >= player.getXPos()) && (((Projectile) ent).getProjX()) <= player.getXPos() + 75) {
                     projList.remove(ent);
                     removed = true;
                 }
@@ -244,13 +239,8 @@ public class Game extends JPanel implements KeyListener {
                     projList.remove(ent);
                     removed = true;
                 }
-                if ((((Projectile) ent).getProjX() > (player.getXPos()-15) && ((Projectile) ent).getProjX() < (player.getXPos() + 75)
-                        && ((Projectile) ent).getProjY() >= player.getYPos()) && ((Projectile) ent).getProjY() <= player.getYPos() + 75) {
-                    projList.remove(ent);
-                    removed = true;
-                }
-                if ((((Projectile) ent).getProjX() > (player.getXPos()-15) && ((Projectile) ent).getProjX() < (player.getXPos() + 75)
-                        && ((Projectile) ent).getProjY() <= player.getYPos() + 75) && ((Projectile) ent).getProjY() >= player.getYPos()) {
+                if ((((Projectile) ent).getProjX() >= (player.getXPos()-15) && ((Projectile) ent).getProjX() <= (player.getXPos() + 75)
+                        && (((Projectile) ent).getProjY()+20) >= player.getYPos()) && ((Projectile) ent).getProjY() <= player.getYPos() + 75) {
                     projList.remove(ent);
                     removed = true;
                 }
