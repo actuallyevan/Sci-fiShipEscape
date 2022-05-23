@@ -79,7 +79,7 @@ public class Game extends JPanel implements KeyListener {
         }
 
         for(int i = 0; i < projList.size(); i++) {
-            entityCollision(projList.get(i));
+            projCollision(projList.get(i));
         }
 
         if(playerProjCounter++ >= 8) {
@@ -342,7 +342,7 @@ public class Game extends JPanel implements KeyListener {
         }
     }
 
-    public void entityCollision(Projectile proj) {
+    public void projCollision(Projectile proj) {
         if (!(proj.getIsPlayerProj())) {
             if ((proj.getProjY() >= (player.getYPos()) && proj.getProjY() <= (player.getYPos() + 75)
                     && (proj.getProjX() + proj.getWidth()) >= player.getXPos()) && (proj.getProjX()) <= player.getXPos() + 75) {
