@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -163,22 +162,22 @@ public class Game extends JPanel implements KeyListener {
     public void spawnPlayerProj () {
         if (isPressedArrow[0]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth()/2 - 10, player.getYPos() - 20,
-                    20, 20, playerProjSpeed, 0, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 0, ((int)(Math.random()*3)), true);
             projList.add(proj);
             playerProjCounter = 0;
         } else if (isPressedArrow[1]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth()/2 - 10, player.getYPos()+player.getHeight(),
-                    20, 20, playerProjSpeed, 1, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 1, ((int)(Math.random()*3)), true);
             projList.add(proj);
             playerProjCounter = 0;
         } else if (isPressedArrow[2]) {
             Projectile proj = new Projectile(player.getXPos() - 20, player.getYPos() + player.getHeight()/2 - 10,
-                    20, 20, playerProjSpeed, 2, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 2, ((int)(Math.random()*3)), true);
             projList.add(proj);
             playerProjCounter = 0;
         } else if (isPressedArrow[3]) {
             Projectile proj = new Projectile(player.getXPos() + player.getWidth(), player.getYPos() + player.getHeight()/2 - 10,
-                    20, 20, playerProjSpeed, 3, ((int)(Math.random()*3)));
+                    20, 20, playerProjSpeed, 3, ((int)(Math.random()*3)), true);
             projList.add(proj);
             playerProjCounter = 0;
         }
@@ -187,16 +186,18 @@ public class Game extends JPanel implements KeyListener {
     public void spawnEnemyProj () {
         for (int i = 0; i<enemyList.size(); i++) {
             Projectile proj = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth()/2 - 10, enemyList.get(i).getYPos() - 20,
-                    20, 20, enemyProjSpeed, 0, ((int)(Math.random()*3)));
+                    20, 20, enemyProjSpeed, 0, ((int)(Math.random()*3)), false);
             projList.add(proj);
             Projectile proj1 = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth()/2 - 10,
-                    enemyList.get(i).getYPos()+enemyList.get(i).getHeight(), 20, 20, enemyProjSpeed, 1, ((int)(Math.random()*3)));
+                    enemyList.get(i).getYPos()+enemyList.get(i).getHeight(), 20, 20, enemyProjSpeed, 1,
+                    ((int)(Math.random()*3)), false);
             projList.add(proj1);
             Projectile proj2 = new Projectile(enemyList.get(i).getXPos() - 20, enemyList.get(i).getYPos() + enemyList.get(i).getHeight()/2 - 10,
-                    20, 20, enemyProjSpeed, 2, ((int)(Math.random()*3)));
+                    20, 20, enemyProjSpeed, 2, ((int)(Math.random()*3)), false);
             projList.add(proj2);
             Projectile proj3 = new Projectile(enemyList.get(i).getXPos() + enemyList.get(i).getWidth(),
-                    enemyList.get(i).getYPos() + enemyList.get(i).getHeight()/2 - 10, 20, 20, enemyProjSpeed, 3, ((int)(Math.random()*3)));
+                    enemyList.get(i).getYPos() + enemyList.get(i).getHeight()/2 - 10, 20, 20, enemyProjSpeed,
+                    3, ((int)(Math.random()*3)), false);
             projList.add(proj3);
             enemyProjCounter = 0;
         }
@@ -225,10 +226,12 @@ public class Game extends JPanel implements KeyListener {
                     projList.remove(ent);
                     removed = true;
                 }
-                if ((((Projectile) ent).getProjY() >= (player.getYPos()-15) && ((Projectile) ent).getProjY() <= (player.getYPos() + 75)
-                        && (((Projectile) ent).getProjX()+20) >= player.getXPos()) && (((Projectile) ent).getProjX()) <= player.getXPos() + 75) {
-                    projList.remove(ent);
-                    removed = true;
+                if (!((Projectile) ent).getIsPlayerProj()) {
+                    if ((((Projectile) ent).getProjY() >= (player.getYPos() - 15) && ((Projectile) ent).getProjY() <= (player.getYPos() + 75)
+                            && (((Projectile) ent).getProjX() + 20) >= player.getXPos()) && (((Projectile) ent).getProjX()) <= player.getXPos() + 75) {
+                        projList.remove(ent);
+                        removed = true;
+                    }
                 }
             }
             
@@ -239,10 +242,12 @@ public class Game extends JPanel implements KeyListener {
                     projList.remove(ent);
                     removed = true;
                 }
-                if ((((Projectile) ent).getProjX() >= (player.getXPos()-15) && ((Projectile) ent).getProjX() <= (player.getXPos() + 75)
-                        && (((Projectile) ent).getProjY()+20) >= player.getYPos()) && ((Projectile) ent).getProjY() <= player.getYPos() + 75) {
-                    projList.remove(ent);
-                    removed = true;
+                if (!((Projectile) ent).getIsPlayerProj()) {
+                    if ((((Projectile) ent).getProjX() >= (player.getXPos() - 15) && ((Projectile) ent).getProjX() <= (player.getXPos() + 75)
+                            && (((Projectile) ent).getProjY() + 20) >= player.getYPos()) && ((Projectile) ent).getProjY() <= player.getYPos() + 75) {
+                        projList.remove(ent);
+                        removed = true;
+                    }
                 }
             }
             

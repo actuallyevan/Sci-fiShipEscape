@@ -7,8 +7,9 @@ public class Projectile extends Entity {
     private double projX;
     private double projY;
     private double bloomAmount = 0.5;
+    private boolean isPlayerProj;
 
-    public Projectile (double projX, double projY, int height, int width, int speed, int direction, int bloom) {
+    public Projectile (double projX, double projY, int height, int width, int speed, int direction, int bloom, boolean isPlayerProj) {
         this.projX = projX;
         this.projY = projY;
         this.height = height;
@@ -16,6 +17,7 @@ public class Projectile extends Entity {
         this.speed = speed;
         this.direction = direction;
         this.bloom = bloom;
+        this.isPlayerProj = isPlayerProj;
     }
 
     public void projectileMove() {
@@ -85,6 +87,10 @@ public class Projectile extends Entity {
 
     public double getProjX () {
         return projX;
+    }
+
+    public boolean getIsPlayerProj () {
+        return isPlayerProj;
     }
 
     public void draw (Graphics g) {
