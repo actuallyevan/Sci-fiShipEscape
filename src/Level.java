@@ -2,6 +2,7 @@ import java.awt.*;
 
 public class Level {
 
+
     private Tile[][] tiles = new Tile[9][16];
 
     public Level() {
@@ -12,6 +13,15 @@ public class Level {
         tiles[3][7] = new Wall(700, 300);
         tiles[4][6] = new Wall(600, 400);
         tiles[5][7] = new Wall(700, 500);
+        tiles[0][7] = new Door(700, 0);
+    }
+    public void level2(){
+        createBackground();
+        tiles[5][4] = new Wall(400, 500);
+        tiles[6][4] = new Wall(400, 600);
+        tiles[3][12] = new Wall(1200, 300);
+        tiles[5][3] = new Wall(300, 500);
+        tiles[3][15] = new Door(1500, 300);
     }
 
     public void createBackground() {

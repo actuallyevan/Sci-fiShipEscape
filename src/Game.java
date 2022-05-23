@@ -11,6 +11,8 @@ public class Game extends JPanel implements KeyListener {
     final int screenHeight = 900;
     final int NANO = 1000000000;
 
+    private int doorCount;
+
     private int playerProjCounter;
     private int playerProjSpeed = 15;
     private int enemyProjCounter;
@@ -32,6 +34,7 @@ public class Game extends JPanel implements KeyListener {
         backGround.level1();
         Enemy en = new Enemy(900,400,75,75, 6, 2, 0);
         enemyList.add(en);
+        doorCount = 0;
     }
 
     public void gameLoop() {
@@ -226,7 +229,8 @@ public class Game extends JPanel implements KeyListener {
             if(dx != 0) {
                 Tile horizontalTile = backGround.getTiles()[projY / 100][(projX + dx) / 100];
                 Tile horizontalTileTwo = backGround.getTiles()[(projY + ent.getHeight()) / 100][(projX + dx) / 100];
-                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) ||
+                        (horizontalTile.getClass() == Door.class || horizontalTileTwo.getClass()== Door.class)) {
                     projList.remove(ent);
                     removed = true;
                 }
@@ -235,7 +239,8 @@ public class Game extends JPanel implements KeyListener {
             if(dy != 0) {
                 Tile verticalTile = backGround.getTiles()[(projY + dy) / 100][projX / 100];
                 Tile verticalTileTwo = backGround.getTiles()[(projY + dy) / 100][(projX + ent.getWidth()) / 100];
-                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)||
+                        (verticalTile.getClass() == Door.class || verticalTileTwo.getClass()== Door.class)) {
                     projList.remove(ent);
                     removed = true;
                 }
@@ -274,7 +279,8 @@ public class Game extends JPanel implements KeyListener {
             if(dx != 0) {
                 Tile horizontalTile = backGround.getTiles()[enY / 100][(enX + dx) / 100];
                 Tile horizontalTileTwo = backGround.getTiles()[(enY + ent.getHeight()) / 100][(enX + dx) / 100];
-                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)) {
+                if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class)||
+                        (horizontalTile.getClass() == Door.class || horizontalTileTwo.getClass()== Door.class)) {
                     if(((Enemy) ent).getBehavior() == 1) {
                         switch (((Enemy) ent).getDirection()) {
                             case 2 -> ((Enemy) ent).setDirection(3);
@@ -294,7 +300,8 @@ public class Game extends JPanel implements KeyListener {
             if(dy != 0) {
                 Tile verticalTile = backGround.getTiles()[(enY + dy) / 100][enX / 100];
                 Tile verticalTileTwo = backGround.getTiles()[(enY + dy) / 100][(enX + ent.getWidth()) / 100];
-                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)) {
+                if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class)||
+                        (verticalTile.getClass() == Door.class || verticalTileTwo.getClass()== Door.class)) {
                     if(((Enemy) ent).getBehavior() == 1) {
                         switch (((Enemy) ent).getDirection()) {
                             case 0 -> ((Enemy) ent).setDirection(1);
@@ -324,8 +331,20 @@ public class Game extends JPanel implements KeyListener {
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[2]) {
                     ent.setXPos(horizontalTile.getXPos() + 100 + ent.getSpeed());
                 }
+                else if(horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class && isPressed[2]){
+                    if(doorCount == 0) {
+                        backGround.level2();
+
+                        doorCount++;
+                    } else if(doorCount == 1) {
+                        //level3
+                    }
+                }
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[3]) {
                     ent.setXPos(horizontalTile.getXPos() - ent.getWidth() - ent.getSpeed());
+                }
+                else if(horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class && isPressed[3]){
+                    backGround.level2();
                 }
             }
 
@@ -335,8 +354,14 @@ public class Game extends JPanel implements KeyListener {
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[0]) {
                     ent.setYPos(verticalTile.getYPos() + 100 + ent.getSpeed());
                 }
+                else if(verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class && isPressed[0]){
+                    backGround.level2();
+                }
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
                     ent.setYPos(verticalTile.getYPos() - ent.getHeight() - ent.getSpeed());
+                }
+                else if(verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class && isPressed[1]){
+                    backGround.level2();
                 }
             }
         }
