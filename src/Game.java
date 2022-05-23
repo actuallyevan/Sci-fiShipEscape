@@ -32,9 +32,7 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
-        Enemy en = new Enemy(900,400,75,75, 6, 5, 2, 0);
-        enemyList.add(en);
-        doorCount = 0;
+        spawnLevelOneEnemy();
     }
 
     public void gameLoop() {
@@ -374,30 +372,62 @@ public class Game extends JPanel implements KeyListener {
                 projList.remove(proj);
                 removed = true;
                 player.setHealth(player.getHealth()-1);
+                checkEntHealth(player);
             } else
             if ((proj.getProjX() >= (player.getXPos()) && proj.getProjX() <= (player.getXPos() + 75)
                     && (proj.getProjY() + proj.getHeight()) >= player.getYPos()) && proj.getProjY() <= player.getYPos() + 75) {
                 projList.remove(proj);
                 removed = true;
                 player.setHealth(player.getHealth()-1);
+                checkEntHealth(player);
             }
         }
         if (proj.getIsPlayerProj()) {
-            for (Enemy enemy : enemyList) {
-                if ((proj.getProjY() >= (enemy.getYPos()) && proj.getProjY() <= (enemy.getYPos() + 75)
-                        && (proj.getProjX() + proj.getWidth()) >= enemy.getXPos()) && (proj.getProjX()) <= enemy.getXPos() + 75) {
+            for (int i = enemyList.size()-1; i >= 0; i--) {
+                if ((proj.getProjY() >= (enemyList.get(i).getYPos()) && proj.getProjY() <= (enemyList.get(i).getYPos() + 75)
+                        && (proj.getProjX() + proj.getWidth()) >= enemyList.get(i).getXPos()) && (proj.getProjX()) <= enemyList.get(i).getXPos() + 75) {
                     projList.remove(proj);
                     removed = true;
-                    enemy.setHealth(enemy.getHealth() - 1);
+                    enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
+                    checkEntHealth(enemyList.get(i));
                 } else
-                if ((proj.getProjX() >= (enemy.getXPos()) && proj.getProjX() <= (enemy.getXPos() + 75)
-                        && (proj.getProjY() + proj.getHeight()) >= enemy.getYPos()) && proj.getProjY() <= enemy.getYPos() + 75) {
+                if ((proj.getProjX() >= (enemyList.get(i).getXPos()) && proj.getProjX() <= (enemyList.get(i).getXPos() + 75)
+                        && (proj.getProjY() + proj.getHeight()) >= enemyList.get(i).getYPos()) && proj.getProjY() <= enemyList.get(i).getYPos() + 75) {
                     projList.remove(proj);
                     removed = true;
-                    enemy.setHealth(enemy.getHealth() - 1);
+                    enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
+                    checkEntHealth(enemyList.get(i));
                 }
             }
         }
+    }
+
+    public void checkEntHealth(Entity ent) {
+        if (ent.getClass() == Enemy.class) {
+            if(ent.getHealth() == 0) {
+                enemyList.remove(ent);
+            }
+        }
+        if (player.getHealth() == 0) {
+            System.out.println("You died - game restarting");
+            for (int i = enemyList.size()-1; i >= 0; i--) {
+                enemyList.remove(i);
+            }
+            for (int i = projList.size()-1; i >= 0; i--) {
+                projList.remove(i);
+            }
+            player.setHealth(5);
+            backGround.level1();
+            spawnLevelOneEnemy();
+        }
+    }
+
+    public void spawnLevelOneEnemy() {
+        player.setXPos(300);
+        player.setYPos(400);
+        Enemy en = new Enemy(900,400,75,75, 6, 5, 2, 0);
+        enemyList.add(en);
+        doorCount = 0;
     }
 }
 
