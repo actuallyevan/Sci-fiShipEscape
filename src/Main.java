@@ -1,7 +1,7 @@
 import javax.swing.*;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         JFrame window = new JFrame();
         Game game = new Game();

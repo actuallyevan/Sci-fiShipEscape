@@ -6,8 +6,8 @@ public class Enemy extends Entity{
     private int counter = 0;
     private int squareSize = 240;
 
-    public Enemy(int xPos, int yPos, int height, int width, int speed, int direction, int behavior) {
-        super(xPos, yPos, height, width, speed);
+    public Enemy(int xPos, int yPos, int height, int width, int speed, int health, int direction, int behavior) {
+        super(xPos, yPos, height, width, speed, health);
         this.direction = direction;
         this.behavior = behavior;
         if (this.behavior == 2) {
@@ -46,6 +46,7 @@ public class Enemy extends Entity{
                         yPos += speed;
                     }
                 }
+                break;
             case 3:
                 if (counter > squareSize) {
                     counter = 0;

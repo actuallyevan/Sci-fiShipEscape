@@ -22,7 +22,7 @@ public class Game extends JPanel implements KeyListener {
     Boolean[] isPressedArrow = {false, false, false, false};
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
-    Entity player = new Entity(800,450,75,75, 10);
+    Entity player = new Entity(800,450,75,75, 10, 5);
 
     ArrayList<Enemy> enemyList = new ArrayList<>();
     ArrayList<Projectile> projList = new ArrayList<>();
@@ -32,7 +32,7 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
-        Enemy en = new Enemy(900,400,75,75, 6, 2, 0);
+        Enemy en = new Enemy(900,400,75,75, 6, 5, 2, 0);
         enemyList.add(en);
         doorCount = 0;
     }
@@ -373,11 +373,13 @@ public class Game extends JPanel implements KeyListener {
                     && (proj.getProjX() + proj.getWidth()) >= player.getXPos()) && (proj.getProjX()) <= player.getXPos() + 75) {
                 projList.remove(proj);
                 removed = true;
-            }
+                player.setHealth(player.getHealth()-1);
+            } else
             if ((proj.getProjX() >= (player.getXPos()) && proj.getProjX() <= (player.getXPos() + 75)
                     && (proj.getProjY() + proj.getHeight()) >= player.getYPos()) && proj.getProjY() <= player.getYPos() + 75) {
                 projList.remove(proj);
                 removed = true;
+                player.setHealth(player.getHealth()-1);
             }
         }
         if (proj.getIsPlayerProj()) {
@@ -386,11 +388,13 @@ public class Game extends JPanel implements KeyListener {
                         && (proj.getProjX() + proj.getWidth()) >= enemy.getXPos()) && (proj.getProjX()) <= enemy.getXPos() + 75) {
                     projList.remove(proj);
                     removed = true;
-                }
+                    enemy.setHealth(enemy.getHealth() - 1);
+                } else
                 if ((proj.getProjX() >= (enemy.getXPos()) && proj.getProjX() <= (enemy.getXPos() + 75)
                         && (proj.getProjY() + proj.getHeight()) >= enemy.getYPos()) && proj.getProjY() <= enemy.getYPos() + 75) {
                     projList.remove(proj);
                     removed = true;
+                    enemy.setHealth(enemy.getHealth() - 1);
                 }
             }
         }
