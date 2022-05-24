@@ -329,20 +329,33 @@ public class Game extends JPanel implements KeyListener {
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[2]) {
                     ent.setXPos(horizontalTile.getXPos() + 100 + ent.getSpeed());
                 }
-                else if(horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class && isPressed[2]){
-                    if(doorCount == 0) {
-                        backGround.level2();
-
-                        doorCount++;
-                    } else if(doorCount == 1) {
-                        //level3
+                else if((horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class) && isPressed[2]){
+                    if(enemyList.size() == 0) {
+                        if(doorCount == 0) {
+                            if(doorCount == 0) {
+                                backGround.level2();
+                                ent.setYPos(725);
+                                doorCount++;
+                            } // else if (doorCount == 1)
+                        }
+                    } else {
+                        ent.setXPos(horizontalTile.getXPos() + 100 + ent.getSpeed());
                     }
                 }
+
                 if ((horizontalTile.getClass() == Wall.class || horizontalTileTwo.getClass() == Wall.class) && isPressed[3]) {
                     ent.setXPos(horizontalTile.getXPos() - ent.getWidth() - ent.getSpeed());
                 }
-                else if(horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class && isPressed[3]){
-                    backGround.level2();
+                else if((horizontalTile.getClass()==Door.class || horizontalTileTwo.getClass()==Door.class) && isPressed[3]){
+                    if(enemyList.size() == 0) {
+                        if(doorCount == 0) {
+                            backGround.level2();
+                            ent.setYPos(725);
+                            doorCount++;
+                        } // else if (doorCount == 1)
+                    } else {
+                        ent.setXPos(horizontalTile.getXPos() - ent.getWidth() - ent.getSpeed());
+                    }
                 }
             }
 
@@ -352,18 +365,35 @@ public class Game extends JPanel implements KeyListener {
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[0]) {
                     ent.setYPos(verticalTile.getYPos() + 100 + ent.getSpeed());
                 }
-                else if(verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class && isPressed[0]){
-                    backGround.level2();
+                else if((verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class) && isPressed[0]){
+                    if(enemyList.size() == 0) {
+                        if(doorCount == 0) {
+                            backGround.level2();
+                            ent.setYPos(725);
+                            doorCount++;
+                        } // else if (doorCount == 1)
+                    } else {
+                        ent.setYPos(verticalTile.getYPos() + 100 + ent.getSpeed());
+                    }
                 }
                 if ((verticalTile.getClass() == Wall.class || verticalTileTwo.getClass() == Wall.class) && isPressed[1]) {
                     ent.setYPos(verticalTile.getYPos() - ent.getHeight() - ent.getSpeed());
                 }
-                else if(verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class && isPressed[1]){
-                    backGround.level2();
+                else if((verticalTile.getClass()==Door.class || verticalTileTwo.getClass()==Door.class) && isPressed[1]){
+                    if(enemyList.size() == 0) {
+                        if(doorCount == 0) {
+                            backGround.level2();
+                            ent.setYPos(725);
+                            doorCount++;
+                        } // else if (doorCount == 1)
+                    } else {
+                        ent.setYPos(verticalTile.getYPos() - ent.getHeight() - ent.getSpeed());
+                    }
+                }
                 }
             }
         }
-    }
+
 
     public void projCollision(Projectile proj) {
         if (!(proj.getIsPlayerProj())) {
