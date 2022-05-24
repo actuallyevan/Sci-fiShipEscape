@@ -18,11 +18,14 @@ public class Level {
     }
     public void level2(){
         createBackground();
-        tiles[5][4] = new Wall(400, 500);
-        tiles[6][4] = new Wall(400, 600);
-        tiles[3][12] = new Wall(1200, 300);
-        tiles[5][3] = new Wall(300, 500);
-        tiles[3][15] = new Door(1500, 300);
+        createRow(4,2,6);
+        createRow(4,9,13);
+        createColumn(6,0,3);
+        createColumn(9,5,7);
+    }
+
+    public void level3() {
+
     }
 
     public void createBackground() {
@@ -32,6 +35,26 @@ public class Level {
                     tiles[i][k] = new Wall(k * 100, i * 100);
                 } else {
                     tiles[i][k] = new Tile(k * 100, i * 100);
+                }
+            }
+        }
+    }
+
+    public void createColumn(int row, int colStart, int colEnd) {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int k = 0; k < tiles[0].length; k++) {
+                if ((k == row) && ((i >= colStart) && (i <= colEnd))) {
+                    tiles[i][k] = new Wall(k * 100, i * 100);
+                }
+            }
+        }
+    }
+
+    public void createRow(int col, int rowStart, int rowEnd) {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int k = 0; k < tiles[0].length; k++) {
+                if ((i == col) && ((k >= rowStart) && (k <= rowEnd))) {
+                    tiles[i][k] = new Wall(k * 100, i * 100);
                 }
             }
         }
