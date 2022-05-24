@@ -414,15 +414,15 @@ public class Game extends JPanel implements KeyListener {
         }
         if (proj.getIsPlayerProj()) {
             for (int i = enemyList.size()-1; i >= 0; i--) {
-                if ((proj.getProjY() >= (enemyList.get(i).getYPos()) && proj.getProjY() <= (enemyList.get(i).getYPos() + 75)
-                        && (proj.getProjX() + proj.getWidth()) >= enemyList.get(i).getXPos()) && (proj.getProjX()) <= enemyList.get(i).getXPos() + 75) {
+                if ((proj.getProjY() >= (enemyList.get(i).getYPos()) && proj.getProjY() <= (enemyList.get(i).getYPos() + enemyList.get(i).getHeight())
+                        && (proj.getProjX() + proj.getWidth()) >= enemyList.get(i).getXPos()) && (proj.getProjX()) <= enemyList.get(i).getXPos() + enemyList.get(i).getWidth()) {
                     projList.remove(proj);
                     removed = true;
                     enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
                     checkEntHealth(enemyList.get(i));
                 } else
-                if ((proj.getProjX() >= (enemyList.get(i).getXPos()) && proj.getProjX() <= (enemyList.get(i).getXPos() + 75)
-                        && (proj.getProjY() + proj.getHeight()) >= enemyList.get(i).getYPos()) && proj.getProjY() <= enemyList.get(i).getYPos() + 75) {
+                if ((proj.getProjX() >= (enemyList.get(i).getXPos()) && proj.getProjX() <= (enemyList.get(i).getXPos() + enemyList.get(i).getWidth())
+                        && (proj.getProjY() + proj.getHeight()) >= enemyList.get(i).getYPos()) && proj.getProjY() <= enemyList.get(i).getYPos() + enemyList.get(i).getHeight()) {
                     projList.remove(proj);
                     removed = true;
                     enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
