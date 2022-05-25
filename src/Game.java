@@ -48,7 +48,7 @@ public class Game extends JPanel implements KeyListener {
             currentTime = System.nanoTime();
 
             update();
-            System.out.println(player.getHealth());
+
             repaint();
 
             while (System.nanoTime()-currentTime <= NANO/60) {
