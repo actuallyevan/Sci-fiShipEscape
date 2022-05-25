@@ -34,6 +34,8 @@ public class Game extends JPanel implements KeyListener {
     public Game() {
         setPreferredSize(new Dimension(screenWidth, screenHeight));
         backGround.level1();
+        player.setYPos(420);
+        player.setXPos(300);
         spawnLevelOneEnemy();
     }
 
@@ -329,23 +331,27 @@ public class Game extends JPanel implements KeyListener {
                             if (doorCount == 0) {
                                 backGround.level2();
                                 spawnLevelTwoEnemy();
-                                ent.setYPos(725);
+                                ent.setYPos(724);
+                                ent.setXPos(101);
                                 doorCount++;
                             } else if (doorCount == 1) {
                                 backGround.level3();
                                 spawnLevelThreeEnemy();
-                                ent.setYPos(725);
+                                ent.setYPos(420);
+                                ent.setXPos(763);
                                 doorCount++;
                             } else if (doorCount == 2) {
                                 backGround.level4();
-                                spawnLevelThreeEnemy();
-                                ent.setYPos(725);
+                                spawnLevelFourEnemy();
+                                ent.setYPos(712);
+                                ent.setXPos(763);
                                 doorCount++;
                             } else if (doorCount == 3) {
                                 backGround.level1();
                                 spawnLevelOneEnemy();
                                 System.out.println("You win - game restarting");
-                                ent.setYPos(725);
+                                ent.setYPos(420);
+                                ent.setXPos(300);
                                 doorCount = 0;
                             }
                         }
@@ -361,23 +367,27 @@ public class Game extends JPanel implements KeyListener {
                         if (doorCount == 0) {
                             backGround.level2();
                             spawnLevelTwoEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(724);
+                            ent.setXPos(101);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
                             spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 2) {
                             backGround.level4();
-                            spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            spawnLevelFourEnemy();
+                            ent.setYPos(712);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 3) {
                             backGround.level1();
                             spawnLevelOneEnemy();
                             System.out.println("You win - game restarting");
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(300);
                             doorCount = 0;
                         }
                     } else {
@@ -396,23 +406,27 @@ public class Game extends JPanel implements KeyListener {
                         if (doorCount == 0) {
                             backGround.level2();
                             spawnLevelTwoEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(724);
+                            ent.setXPos(101);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
                             spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 2) {
                             backGround.level4();
-                            spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            spawnLevelFourEnemy();
+                            ent.setYPos(712);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 3) {
                             backGround.level1();
                             spawnLevelOneEnemy();
                             System.out.println("You win - game restarting");
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(300);
                             doorCount = 0;
                         }
                     } else {
@@ -426,23 +440,27 @@ public class Game extends JPanel implements KeyListener {
                         if (doorCount == 0) {
                             backGround.level2();
                             spawnLevelTwoEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(724);
+                            ent.setXPos(101);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
                             spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 2) {
                             backGround.level4();
-                            spawnLevelThreeEnemy();
-                            ent.setYPos(725);
+                            spawnLevelFourEnemy();
+                            ent.setYPos(712);
+                            ent.setXPos(763);
                             doorCount++;
                         } else if (doorCount == 3) {
                             backGround.level1();
                             spawnLevelOneEnemy();
                             System.out.println("You win - game restarting");
-                            ent.setYPos(725);
+                            ent.setYPos(420);
+                            ent.setXPos(300);
                             doorCount = 0;
                         }
                     } else {
@@ -473,13 +491,15 @@ public class Game extends JPanel implements KeyListener {
         if (proj.getIsPlayerProj()) {
             for (int i = enemyList.size()-1; i >= 0; i--) {
                 if ((proj.getProjY() >= (enemyList.get(i).getYPos()) && proj.getProjY() <= (enemyList.get(i).getYPos() + enemyList.get(i).getHeight())
-                        && (proj.getProjX() + proj.getWidth()) >= enemyList.get(i).getXPos()) && (proj.getProjX()) <= enemyList.get(i).getXPos() + enemyList.get(i).getWidth()) {
+                        && (proj.getProjX() + proj.getWidth()) >= enemyList.get(i).getXPos()) && (proj.getProjX()) <= enemyList.get(i).getXPos() +
+                        enemyList.get(i).getWidth()) {
                     projList.remove(proj);
                     removed = true;
                     enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
                     checkEntHealth(enemyList.get(i));
                 } else if ((proj.getProjX() >= (enemyList.get(i).getXPos()) && proj.getProjX() <= (enemyList.get(i).getXPos() + enemyList.get(i).getWidth())
-                        && (proj.getProjY() + proj.getHeight()) >= enemyList.get(i).getYPos()) && proj.getProjY() <= enemyList.get(i).getYPos() + enemyList.get(i).getHeight()) {
+                        && (proj.getProjY() + proj.getHeight()) >= enemyList.get(i).getYPos()) && proj.getProjY() <= enemyList.get(i).getYPos() +
+                        enemyList.get(i).getHeight()) {
                     projList.remove(proj);
                     removed = true;
                     enemyList.get(i).setHealth(enemyList.get(i).getHealth() - 1);
@@ -530,11 +550,25 @@ public class Game extends JPanel implements KeyListener {
     }
 
     public void spawnLevelThreeEnemy() {
-
+        Enemy en = new Enemy(225, 225, 75, 75, 10, 10, 0, 0);
+        enemyList.add(en);
+        Enemy en2 = new Enemy(1300, 600, 75, 75, 5, 10, 0, 0);
+        enemyList.add(en2);
+        Enemy en3 = new Enemy(320, 712, 75, 75, 3, 10, 2, 1);
+        enemyList.add(en3);
+        Enemy en4 = new Enemy(1200, 112, 75, 75, 3, 10, 2, 1);
+        enemyList.add(en4);
     }
 
     public void spawnLevelFourEnemy() {
-
+        Enemy en = new Enemy(212, 112, 75, 75, 10, 10, 0, 0);
+        enemyList.add(en);
+        Enemy en2 = new Enemy(1312, 712, 75, 75, 5, 10, 0, 0);
+        enemyList.add(en2);
+        Enemy en3 = new Enemy(320, 712, 75, 75, 3, 10, 2, 2);
+        enemyList.add(en3);
+        Enemy en4 = new Enemy(1200, 112, 75, 75, 3, 10, 2, 2);
+        enemyList.add(en4);
     }
 }
 
