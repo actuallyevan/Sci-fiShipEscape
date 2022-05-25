@@ -7,3 +7,15 @@ We plan for Shane to create the graphics and UI because I have the most experien
 
 ### Screen Example
 ![image](https://user-images.githubusercontent.com/56329378/168218420-7108c3be-c736-4ff9-a500-10d7e51f536f.png)
+
+
+### How to Run
+run from the source code or use jar file to launch. Move with WASD and shoot with either IJKL or arrow keys. Kill all of the enemies and then move into the blue door to progress. 
+
+### Known Issues
+-Health doesn't reset if you win
+-sometimes the player will spawn into a wall
+-touching a corner causes a small movement glitch
+
+### Citations
+N/A - didn't take any code from someone else
