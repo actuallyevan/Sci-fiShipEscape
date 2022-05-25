@@ -48,7 +48,7 @@ public class Game extends JPanel implements KeyListener {
             currentTime = System.nanoTime();
 
             update();
-
+            System.out.println(player.getHealth());
             repaint();
 
             while (System.nanoTime()-currentTime <= NANO/60) {
@@ -332,7 +332,7 @@ public class Game extends JPanel implements KeyListener {
                                 backGround.level2();
                                 spawnLevelTwoEnemy();
                                 ent.setYPos(724);
-                                ent.setXPos(101);
+                                ent.setXPos(102);
                                 doorCount++;
                             } else if (doorCount == 1) {
                                 backGround.level3();
@@ -368,7 +368,7 @@ public class Game extends JPanel implements KeyListener {
                             backGround.level2();
                             spawnLevelTwoEnemy();
                             ent.setYPos(724);
-                            ent.setXPos(101);
+                            ent.setXPos(102);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
@@ -407,7 +407,7 @@ public class Game extends JPanel implements KeyListener {
                             backGround.level2();
                             spawnLevelTwoEnemy();
                             ent.setYPos(724);
-                            ent.setXPos(101);
+                            ent.setXPos(102);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
@@ -441,7 +441,7 @@ public class Game extends JPanel implements KeyListener {
                             backGround.level2();
                             spawnLevelTwoEnemy();
                             ent.setYPos(724);
-                            ent.setXPos(101);
+                            ent.setXPos(102);
                             doorCount++;
                         } else if (doorCount == 1) {
                             backGround.level3();
@@ -524,7 +524,7 @@ public class Game extends JPanel implements KeyListener {
             for (int i = projList.size()-1; i >= 0; i--) {
                 projList.remove(i);
             }
-            player.setHealth(5);
+            player.setHealth(10);
             backGround.level1();
             spawnLevelOneEnemy();
         }
