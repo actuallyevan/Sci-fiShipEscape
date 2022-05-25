@@ -24,7 +24,7 @@ public class Game extends JPanel implements KeyListener {
 
     Map<Character, Integer> keyMap = Map.of('w', 0, 's', 1, 'a', 2, 'd', 3);
 
-    Entity player = new Entity(800,450,75,75, 10, 100);
+    Entity player = new Entity(800,450,75,75, 10, 10);
 
     ArrayList<Enemy> enemyList = new ArrayList<>();
     ArrayList<Projectile> projList = new ArrayList<>();
